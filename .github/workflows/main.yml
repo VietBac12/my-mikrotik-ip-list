@@ -1,41 +1,51 @@
 name: Update Mikrotik IP List
 
-permissions:
-  contents: write
-  actions: write
+# Chống trùng lặp: Nếu có lượt chạy mới (#14), lượt cũ đang chờ (#13) sẽ bị hủy ngay lập tức
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 on:
   schedule:
-    - cron: '0 2 * * 1'
-  workflow_dispatch:
+    # Tự động chạy vào 02:00 sáng Chủ Nhật hàng tuần (Giờ UTC)
+    - cron: '0 2 * * 0'
+  workflow_dispatch: # Cho phép bạn nhấn nút "Run workflow" bằng tay
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # Cấp quyền để Action có thể ghi (push) file vào Repository của bạn
+    permissions:
+      contents: write
+
     steps:
+      # 1. Lấy mã nguồn từ Repository về máy ảo
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
+      # 2. Cài đặt môi trường Python
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
-      - name: Run script
+      # 3. Cài đặt thư viện cần thiết (requests)
+      - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install requests
-          python generate_ip.py
 
-      - name: Commit and push
+      # 4. Chạy script Python để tạo file vn_ipv4.rsc
+      - name: Run IP Generator
+        run: python generate_ip.py
+
+      # 5. Đẩy file mới lên GitHub (Tự động commit với tên bạn)
+      - name: Commit and Push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add vn_ipv4.rsc
-          git commit -m "Refresh IP list with detailed logs" || exit 0
+          # Chỉ commit nếu file có sự thay đổi
+          git commit -m "🚀 Auto-update VN IP List: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
           git push
-
-      - name: Cleanup old workflow runs
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh run list --workflow "Update Mikrotik IP List" --json databaseId -q ".[] | .databaseId" | tail -n +2 | xargs -r -I {} gh run delete {} || echo "Clean"
