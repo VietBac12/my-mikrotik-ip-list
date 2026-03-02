@@ -1,20 +1,20 @@
 name: Update Mikrotik IP List
 
+# Vẫn giữ cái này để nếu có lỡ tay bấm nút 2 lần thì nó tự hủy bản cũ
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
-  schedule:
-    - cron: '0 2 * * 0' # 2:00 sáng Chủ Nhật
-  workflow_dispatch:
+  # XÓA PHẦN SCHEDULE Ở ĐÂY
+  workflow_dispatch: # Chỉ giữ lại cái này để kích hoạt bằng tay/API
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      actions: write # Quyền để xóa lịch sử
+      actions: write
 
     steps:
       - name: Checkout code
@@ -39,10 +39,8 @@ jobs:
           git commit -m "🚀 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
           git push
 
-      # --- DỌN DẸP BẰNG GITHUB CLI (CHÍNH CHỦ - KHÔNG LO LỖI) ---
       - name: Delete old workflow runs
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Giữ lại 3 bản chạy gần nhất, xóa toàn bộ những bản cũ hơn
           gh run list --limit 50 --json databaseId  -q '.[3:] | .[].databaseId' | xargs -I{} gh run delete {}
