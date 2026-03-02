@@ -1,10 +1,12 @@
 name: Update Mikrotik IP List
+
 permissions:
-  contents: write  # Cấp quyền ghi vào kho lưu trữ
+  contents: write
+
 on:
   schedule:
-    - cron: '0 2 * * 1' # Chạy vào 2 giờ sáng thứ Hai hàng tuần
-  workflow_dispatch:      # Cho phép bạn nhấn nút chạy thủ công
+    - cron: '0 2 * * 1' # Tu dong chay 2h sang thu Hai
+  workflow_dispatch:      # Cho phep chay thu cong bang tay
 
 jobs:
   build:
@@ -24,10 +26,10 @@ jobs:
       - name: Run script
         run: python generate_ip.py
 
-      - name: Commit and push if changed
+      - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add vn_ipv4.rsc
-          git commit -m "Update VN IP list" || exit 0
+          git commit -m "Auto Update VN IP list" || exit 0
           git push
