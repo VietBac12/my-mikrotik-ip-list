@@ -3,3 +3,28 @@
 /import file-name=vn.rsc
 /file remove [find name=vn.rsc]
 🛡️ Whitelist mặc địnhDanh sách này luôn bao gồm các IP sau để đảm bảo độ trễ thấp nhất:1.1.1.1/32 (Cloudflare DNS)8.8.8.8/32 (Google DNS)9.9.9.9/32 (Quad9)📈 Lộ trình phát triển (Roadmap)[x] Tích hợp nguồn dữ liệu VNNIC chính thống.[x] Tự động gộp dải IP (Collapse Algorithm).[x] Kích hoạt ngoại viện qua Cloudflare Workers.[ ] Gửi báo cáo kết quả qua Telegram Bot.Dự án được thực hiện bởi VietBac12. Chúc bạn có một đường truyền mượt mà như vũ đạo của NewJeans! 💃
+graph TD
+    subgraph "🌐 External Triggers"
+        A[Cloudflare Workers] -- "Cron: 0 3 * * 1" --> B(GitHub API)
+    end
+
+    subgraph "🏗️ GitHub Factory (The Brain)"
+        B --> C[GitHub Actions]
+        C --> D{Python Script}
+        D --> E[APNIC Source]
+        D --> F[VNNIC Official]
+        D --> G[GeoIP Source]
+        E & F & G --> H[Merge & Collapse Algorithm]
+        H --> I[vn_ipv4.rsc]
+        I --> J[(GitHub Repository)]
+    end
+
+    subgraph "🏠 Local Environment (The Client)"
+        K[Mikrotik RB750Gr3] -- "Fetch via Raw Link" --> J
+        K --> L[Import to Firewall]
+        L --> M[Clean Up Temporary Files]
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style K fill:#bbf,stroke:#333,stroke-width:2px
+    style I fill:#dfd,stroke:#333,stroke-width:2px
