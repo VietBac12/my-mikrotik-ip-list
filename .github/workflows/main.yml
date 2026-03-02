@@ -1,20 +1,23 @@
 name: Update Mikrotik IP List
 
+# 1. CHỐT CHẶN: Nếu có 2 lệnh cùng lúc, cái cũ sẽ bị "trảm" ngay lập tức
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
   schedule:
-    - cron: '0 2 * * 0'
-  workflow_dispatch:
+    - cron: '0 2 * * 0' # Tự động chạy 2h sáng Chủ Nhật
+  workflow_dispatch:      # Nút bấm thủ công
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # 2. CẤP QUYỀN: Cần quyền 'actions' để có thể xóa lịch sử chạy cũ
     permissions:
       contents: write
-      actions: write # Cần quyền này để xóa lịch sử Action
+      actions: write
 
     steps:
       - name: Checkout code
@@ -39,11 +42,11 @@ jobs:
           git commit -m "🚀 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
           git push
 
-      # --- ĐÂY LÀ TÍNH NĂNG DỌN DẸP BẠN ĐANG CẦN ---
+      # 3. DỌN DẸP: Xóa sạch các bản chạy cũ, chỉ giữ lại 3 bản mới nhất
       - name: Delete old workflow runs
         uses: Mattraiano/delete-old-workflow-runs@v2
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: 0       # Xóa ngay lập tức các bản cũ
-          keep_minimum_runs: 3 # Chỉ giữ lại 3 bản chạy thành công gần nhất
+          retain_days: 0
+          keep_minimum_runs: 3
