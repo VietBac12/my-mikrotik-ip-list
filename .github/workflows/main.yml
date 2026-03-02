@@ -1,43 +1,34 @@
 name: Update Mikrotik IP List
-
 permissions:
   contents: write
-  actions: write    # Bắt buộc có quyền này để xóa lịch sử chạy
-
+  actions: write
 on:
   schedule:
-    - cron: '0 2 * * 1' # Chạy 2h sáng thứ Hai
-  workflow_dispatch:      # Cho phép chạy tay
-
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-
-      - name: Install dependencies
-        run: pip install requests
-
       - name: Run script
-        run: python generate_ip.py
-
+        run: |
+          pip install requests
+          python generate_ip.py
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add vn_ipv4.rsc
-          git commit -m "Auto Update VN IP list" || exit 0
+          git commit -m "Refresh IP list" || exit 0
           git push
-
-      # BƯỚC FIX LỖI: Sử dụng GitHub CLI chính chủ để xóa các lần chạy cũ
-      - name: Cleanup old workflow runs
+      - name: Cleanup old runs
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run list --workflow "Update Mikrotik IP List" --json databaseId -q ".[] | .databaseId" | tail -n +2 | xargs -r -I {} gh run delete {} || echo "No runs to delete"
+          gh run list --workflow "Update Mikrotik IP List" --json databaseId -q ".[] | .databaseId" | tail -n +2 | xargs -r -I {} gh run delete {} || echo "Clean"
