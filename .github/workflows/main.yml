@@ -1,5 +1,6 @@
 name: Update Mikrotik IP List
-
+permissions:
+  contents: write  # Cấp quyền ghi vào kho lưu trữ
 on:
   schedule:
     - cron: '0 2 * * 1' # Chạy vào 2 giờ sáng thứ Hai hàng tuần
