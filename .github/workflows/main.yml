@@ -2,12 +2,12 @@ name: Update Mikrotik IP List
 
 permissions:
   contents: write
-  actions: write    # THÊM QUYỀN NÀY để xóa được lịch sử chạy cũ
+  actions: write    # Bắt buộc có quyền này để xóa lịch sử chạy
 
 on:
   schedule:
-    - cron: '0 2 * * 1'
-  workflow_dispatch:
+    - cron: '0 2 * * 1' # Chạy 2h sáng thứ Hai
+  workflow_dispatch:      # Cho phép chạy tay
 
 jobs:
   build:
@@ -35,11 +35,9 @@ jobs:
           git commit -m "Auto Update VN IP list" || exit 0
           git push
 
-      # BƯỚC "MA THUẬT": Xóa tất cả các lần chạy cũ, chỉ giữ lại lần này
-      - name: Delete old workflow runs
-        uses: Mattraiano/delete-old-runs@v2
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 0      # Không giữ lại ngày nào cả
-          keep_minimum_runs: 1 # Chỉ giữ lại 1 lần chạy duy nhất (là lần hiện tại)
+      # BƯỚC FIX LỖI: Sử dụng GitHub CLI chính chủ để xóa các lần chạy cũ
+      - name: Cleanup old workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run list --workflow "Update Mikrotik IP List" --json databaseId -q ".[] | .databaseId" | tail -n +2 | xargs -r -I {} gh run delete {} || echo "No runs to delete"
