@@ -1,4 +1,4 @@
-# Danh sach IP Viet Nam - San xuat luc: 2026-03-02 14:16:23
+# Danh sach IP Viet Nam - San xuat luc: 2026-03-02 14:17:30
 /ip firewall address-list remove [find list=vn_ipv4]
 /ip firewall address-list add list=vn_ipv4 address=1.1.1.1/32
 /ip firewall address-list add list=vn_ipv4 address=1.52.0.0/14
