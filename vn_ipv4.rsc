@@ -1,4 +1,4 @@
-# VN IP List - Categorized - Updated: 2026-03-03 03:57:40.334368
+# VN IP List - Corrected & Categorized - Updated: 2026-03-03 04:05:52.287410
 /ip firewall address-list remove [find list=vn_ipv4]
 /ip firewall address-list add list=vn_ipv4 address=1.0.0.1/32
 /ip firewall address-list add list=vn_ipv4 address=1.1.1.1/32
@@ -70,6 +70,8 @@
 /ip firewall address-list add list=vn_ipv4 address=5.198.248.176/28
 /ip firewall address-list add list=vn_ipv4 address=8.8.4.4/32
 /ip firewall address-list add list=vn_ipv4 address=8.8.8.8/32
+/ip firewall address-list add list=vn_ipv4 address=8.148.36.0/23
+/ip firewall address-list add list=vn_ipv4 address=8.148.39.0/24
 /ip firewall address-list add list=vn_ipv4 address=13.104.184.224/28
 /ip firewall address-list add list=vn_ipv4 address=13.227.165.0/24
 /ip firewall address-list add list=vn_ipv4 address=13.227.166.0/24
@@ -151,6 +153,7 @@
 /ip firewall address-list add list=vn_ipv4 address=23.206.122.0/23
 /ip firewall address-list add list=vn_ipv4 address=23.208.160.0/22
 /ip firewall address-list add list=vn_ipv4 address=23.210.194.0/23
+/ip firewall address-list add list=vn_ipv4 address=23.228.65.0/24
 /ip firewall address-list add list=vn_ipv4 address=23.247.45.0/24
 /ip firewall address-list add list=vn_ipv4 address=27.0.12.0/22
 /ip firewall address-list add list=vn_ipv4 address=27.0.240.0/22
@@ -158,7 +161,11 @@
 /ip firewall address-list add list=vn_ipv4 address=27.64.0.0/12
 /ip firewall address-list add list=vn_ipv4 address=27.118.16.0/20
 /ip firewall address-list add list=vn_ipv4 address=27.124.19.0/24
+/ip firewall address-list add list=vn_ipv4 address=27.124.48.0/22
+/ip firewall address-list add list=vn_ipv4 address=27.124.52.0/24
+/ip firewall address-list add list=vn_ipv4 address=31.25.10.0/24
 /ip firewall address-list add list=vn_ipv4 address=31.170.110.224/28
+/ip firewall address-list add list=vn_ipv4 address=32.103.96.0/21
 /ip firewall address-list add list=vn_ipv4 address=34.98.238.0/23
 /ip firewall address-list add list=vn_ipv4 address=34.98.254.0/23
 /ip firewall address-list add list=vn_ipv4 address=34.103.14.0/23
@@ -194,6 +201,7 @@
 /ip firewall address-list add list=vn_ipv4 address=42.1.64.0/18
 /ip firewall address-list add list=vn_ipv4 address=42.96.0.0/18
 /ip firewall address-list add list=vn_ipv4 address=42.112.0.0/13
+/ip firewall address-list add list=vn_ipv4 address=43.132.68.0/24
 /ip firewall address-list add list=vn_ipv4 address=43.132.92.0/24
 /ip firewall address-list add list=vn_ipv4 address=43.152.4.0/24
 /ip firewall address-list add list=vn_ipv4 address=43.152.9.0/24
@@ -210,8 +218,7 @@
 /ip firewall address-list add list=vn_ipv4 address=43.168.164.0/22
 /ip firewall address-list add list=vn_ipv4 address=43.168.168.0/24
 /ip firewall address-list add list=vn_ipv4 address=43.174.116.0/22
-/ip firewall address-list add list=vn_ipv4 address=43.174.121.0/24
-/ip firewall address-list add list=vn_ipv4 address=43.174.122.0/23
+/ip firewall address-list add list=vn_ipv4 address=43.174.120.0/22
 /ip firewall address-list add list=vn_ipv4 address=43.174.162.0/23
 /ip firewall address-list add list=vn_ipv4 address=43.175.88.0/22
 /ip firewall address-list add list=vn_ipv4 address=43.175.173.0/24
@@ -296,6 +303,10 @@
 /ip firewall address-list add list=vn_ipv4 address=46.149.134.0/23
 /ip firewall address-list add list=vn_ipv4 address=46.149.136.0/22
 /ip firewall address-list add list=vn_ipv4 address=46.244.29.192/28
+/ip firewall address-list add list=vn_ipv4 address=47.89.102.0/24
+/ip firewall address-list add list=vn_ipv4 address=47.235.5.0/24
+/ip firewall address-list add list=vn_ipv4 address=47.235.8.0/24
+/ip firewall address-list add list=vn_ipv4 address=47.235.20.0/24
 /ip firewall address-list add list=vn_ipv4 address=47.246.66.0/24
 /ip firewall address-list add list=vn_ipv4 address=49.156.52.0/22
 /ip firewall address-list add list=vn_ipv4 address=49.213.40.0/23
@@ -365,7 +376,7 @@
 /ip firewall address-list add list=vn_ipv4 address=69.65.54.80/28
 /ip firewall address-list add list=vn_ipv4 address=69.65.54.96/27
 /ip firewall address-list add list=vn_ipv4 address=69.65.54.128/25
-/ip firewall address-list add list=vn_ipv4 address=69.84.199.192/26
+/ip firewall address-list add list=vn_ipv4 address=69.84.199.0/24
 /ip firewall address-list add list=vn_ipv4 address=69.85.92.0/24
 /ip firewall address-list add list=vn_ipv4 address=71.18.82.0/24
 /ip firewall address-list add list=vn_ipv4 address=71.18.164.0/24
@@ -427,8 +438,7 @@
 /ip firewall address-list add list=vn_ipv4 address=98.159.46.192/28
 /ip firewall address-list add list=vn_ipv4 address=101.32.68.0/22
 /ip firewall address-list add list=vn_ipv4 address=101.32.72.0/21
-/ip firewall address-list add list=vn_ipv4 address=101.33.12.0/23
-/ip firewall address-list add list=vn_ipv4 address=101.33.15.0/24
+/ip firewall address-list add list=vn_ipv4 address=101.33.12.0/22
 /ip firewall address-list add list=vn_ipv4 address=101.33.30.0/23
 /ip firewall address-list add list=vn_ipv4 address=101.36.102.0/23
 /ip firewall address-list add list=vn_ipv4 address=101.44.216.0/22
@@ -515,7 +525,7 @@
 /ip firewall address-list add list=vn_ipv4 address=103.26.252.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.27.60.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.27.64.0/22
-/ip firewall address-list add list=vn_ipv4 address=103.27.229.128/25
+/ip firewall address-list add list=vn_ipv4 address=103.27.229.0/24
 /ip firewall address-list add list=vn_ipv4 address=103.27.231.0/24
 /ip firewall address-list add list=vn_ipv4 address=103.27.236.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.28.32.0/21
@@ -676,6 +686,7 @@
 /ip firewall address-list add list=vn_ipv4 address=103.100.228.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.101.32.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.101.76.0/22
+/ip firewall address-list add list=vn_ipv4 address=103.101.90.0/24
 /ip firewall address-list add list=vn_ipv4 address=103.101.160.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.102.20.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.102.128.0/22
@@ -1399,11 +1410,13 @@
 /ip firewall address-list add list=vn_ipv4 address=108.157.34.0/23
 /ip firewall address-list add list=vn_ipv4 address=108.157.37.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.157.39.0/24
+/ip firewall address-list add list=vn_ipv4 address=108.165.65.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.165.110.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.165.138.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.165.198.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.171.109.0/24
 /ip firewall address-list add list=vn_ipv4 address=108.179.82.0/24
+/ip firewall address-list add list=vn_ipv4 address=109.70.236.0/24
 /ip firewall address-list add list=vn_ipv4 address=109.176.22.0/24
 /ip firewall address-list add list=vn_ipv4 address=109.237.64.0/21
 /ip firewall address-list add list=vn_ipv4 address=109.238.201.0/24
@@ -1518,7 +1531,8 @@
 /ip firewall address-list add list=vn_ipv4 address=130.41.227.128/27
 /ip firewall address-list add list=vn_ipv4 address=130.49.50.0/24
 /ip firewall address-list add list=vn_ipv4 address=130.94.3.0/24
-/ip firewall address-list add list=vn_ipv4 address=130.94.4.0/23
+/ip firewall address-list add list=vn_ipv4 address=130.94.4.0/22
+/ip firewall address-list add list=vn_ipv4 address=130.94.8.0/23
 /ip firewall address-list add list=vn_ipv4 address=131.125.136.0/24
 /ip firewall address-list add list=vn_ipv4 address=131.229.137.26/32
 /ip firewall address-list add list=vn_ipv4 address=131.229.137.154/32
@@ -1563,10 +1577,7 @@
 /ip firewall address-list add list=vn_ipv4 address=134.159.231.0/24
 /ip firewall address-list add list=vn_ipv4 address=134.159.240.0/23
 /ip firewall address-list add list=vn_ipv4 address=134.231.132.0/24
-/ip firewall address-list add list=vn_ipv4 address=134.238.22.96/27
-/ip firewall address-list add list=vn_ipv4 address=134.238.22.128/25
-/ip firewall address-list add list=vn_ipv4 address=134.238.23.0/25
-/ip firewall address-list add list=vn_ipv4 address=134.238.23.128/27
+/ip firewall address-list add list=vn_ipv4 address=134.238.22.0/23
 /ip firewall address-list add list=vn_ipv4 address=136.227.140.156/30
 /ip firewall address-list add list=vn_ipv4 address=136.227.140.160/31
 /ip firewall address-list add list=vn_ipv4 address=137.59.24.0/21
@@ -1602,6 +1613,7 @@
 /ip firewall address-list add list=vn_ipv4 address=139.99.118.0/26
 /ip firewall address-list add list=vn_ipv4 address=139.177.242.0/23
 /ip firewall address-list add list=vn_ipv4 address=140.82.198.0/24
+/ip firewall address-list add list=vn_ipv4 address=140.99.116.0/24
 /ip firewall address-list add list=vn_ipv4 address=140.150.42.0/24
 /ip firewall address-list add list=vn_ipv4 address=140.150.235.0/24
 /ip firewall address-list add list=vn_ipv4 address=140.209.204.64/26
@@ -1646,8 +1658,7 @@
 /ip firewall address-list add list=vn_ipv4 address=146.75.187.54/31
 /ip firewall address-list add list=vn_ipv4 address=146.75.187.56/30
 /ip firewall address-list add list=vn_ipv4 address=146.196.64.0/22
-/ip firewall address-list add list=vn_ipv4 address=147.243.218.192/26
-/ip firewall address-list add list=vn_ipv4 address=147.243.219.0/24
+/ip firewall address-list add list=vn_ipv4 address=147.243.218.0/23
 /ip firewall address-list add list=vn_ipv4 address=148.135.154.0/24
 /ip firewall address-list add list=vn_ipv4 address=148.135.174.0/24
 /ip firewall address-list add list=vn_ipv4 address=148.153.36.0/24
@@ -1657,6 +1668,7 @@
 /ip firewall address-list add list=vn_ipv4 address=148.153.204.0/22
 /ip firewall address-list add list=vn_ipv4 address=148.153.218.0/23
 /ip firewall address-list add list=vn_ipv4 address=148.153.243.0/24
+/ip firewall address-list add list=vn_ipv4 address=148.153.244.0/24
 /ip firewall address-list add list=vn_ipv4 address=148.222.80.0/22
 /ip firewall address-list add list=vn_ipv4 address=148.222.88.0/22
 /ip firewall address-list add list=vn_ipv4 address=148.222.93.0/24
@@ -1668,8 +1680,7 @@
 /ip firewall address-list add list=vn_ipv4 address=149.87.153.0/24
 /ip firewall address-list add list=vn_ipv4 address=149.87.169.0/24
 /ip firewall address-list add list=vn_ipv4 address=149.87.181.0/24
-/ip firewall address-list add list=vn_ipv4 address=149.104.80.0/23
-/ip firewall address-list add list=vn_ipv4 address=149.104.83.0/24
+/ip firewall address-list add list=vn_ipv4 address=149.104.80.0/22
 /ip firewall address-list add list=vn_ipv4 address=149.104.100.0/23
 /ip firewall address-list add list=vn_ipv4 address=149.104.123.0/24
 /ip firewall address-list add list=vn_ipv4 address=149.104.125.0/24
@@ -1683,6 +1694,7 @@
 /ip firewall address-list add list=vn_ipv4 address=150.109.136.0/23
 /ip firewall address-list add list=vn_ipv4 address=150.109.142.0/23
 /ip firewall address-list add list=vn_ipv4 address=150.228.160.0/23
+/ip firewall address-list add list=vn_ipv4 address=150.241.250.0/24
 /ip firewall address-list add list=vn_ipv4 address=151.158.64.0/23
 /ip firewall address-list add list=vn_ipv4 address=151.158.94.0/23
 /ip firewall address-list add list=vn_ipv4 address=151.158.102.0/23
@@ -1723,6 +1735,7 @@
 /ip firewall address-list add list=vn_ipv4 address=154.82.23.0/24
 /ip firewall address-list add list=vn_ipv4 address=154.82.174.0/23
 /ip firewall address-list add list=vn_ipv4 address=154.83.10.0/24
+/ip firewall address-list add list=vn_ipv4 address=154.83.26.0/23
 /ip firewall address-list add list=vn_ipv4 address=154.85.94.0/24
 /ip firewall address-list add list=vn_ipv4 address=154.89.5.0/24
 /ip firewall address-list add list=vn_ipv4 address=154.92.212.0/23
@@ -1768,7 +1781,7 @@
 /ip firewall address-list add list=vn_ipv4 address=154.205.142.0/23
 /ip firewall address-list add list=vn_ipv4 address=154.211.30.0/24
 /ip firewall address-list add list=vn_ipv4 address=155.94.169.0/24
-/ip firewall address-list add list=vn_ipv4 address=155.102.18.0/23
+/ip firewall address-list add list=vn_ipv4 address=155.102.16.0/22
 /ip firewall address-list add list=vn_ipv4 address=155.102.20.0/24
 /ip firewall address-list add list=vn_ipv4 address=155.102.135.0/24
 /ip firewall address-list add list=vn_ipv4 address=155.117.191.0/24
@@ -2103,6 +2116,7 @@
 /ip firewall address-list add list=vn_ipv4 address=163.171.228.0/24
 /ip firewall address-list add list=vn_ipv4 address=163.181.63.0/24
 /ip firewall address-list add list=vn_ipv4 address=163.181.103.0/24
+/ip firewall address-list add list=vn_ipv4 address=163.181.142.0/23
 /ip firewall address-list add list=vn_ipv4 address=163.181.203.0/24
 /ip firewall address-list add list=vn_ipv4 address=163.181.239.0/24
 /ip firewall address-list add list=vn_ipv4 address=163.223.6.0/23
@@ -2281,6 +2295,7 @@
 /ip firewall address-list add list=vn_ipv4 address=191.96.120.0/24
 /ip firewall address-list add list=vn_ipv4 address=192.8.238.46/31
 /ip firewall address-list add list=vn_ipv4 address=192.99.241.0/24
+/ip firewall address-list add list=vn_ipv4 address=192.142.174.0/23
 /ip firewall address-list add list=vn_ipv4 address=192.145.71.0/32
 /ip firewall address-list add list=vn_ipv4 address=192.159.102.0/23
 /ip firewall address-list add list=vn_ipv4 address=192.223.12.0/22
@@ -2299,6 +2314,8 @@
 /ip firewall address-list add list=vn_ipv4 address=194.104.142.0/24
 /ip firewall address-list add list=vn_ipv4 address=194.105.88.0/24
 /ip firewall address-list add list=vn_ipv4 address=194.110.138.0/24
+/ip firewall address-list add list=vn_ipv4 address=194.127.192.0/23
+/ip firewall address-list add list=vn_ipv4 address=195.85.19.0/24
 /ip firewall address-list add list=vn_ipv4 address=195.86.72.0/21
 /ip firewall address-list add list=vn_ipv4 address=195.86.96.0/20
 /ip firewall address-list add list=vn_ipv4 address=196.48.206.0/24
@@ -2485,6 +2502,7 @@
 /ip firewall address-list add list=vn_ipv4 address=212.211.194.224/29
 /ip firewall address-list add list=vn_ipv4 address=212.212.70.0/23
 /ip firewall address-list add list=vn_ipv4 address=212.212.82.0/23
+/ip firewall address-list add list=vn_ipv4 address=213.170.133.0/24
 /ip firewall address-list add list=vn_ipv4 address=213.170.221.0/24
 /ip firewall address-list add list=vn_ipv4 address=216.27.173.0/24
 /ip firewall address-list add list=vn_ipv4 address=216.27.174.0/24
