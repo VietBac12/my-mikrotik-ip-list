@@ -1,4 +1,4 @@
-# VN IP List - Corrected & Categorized - Updated: 2026-03-03 04:05:52.287410
+# VN IP List - Corrected Native Sources - Updated: 2026-03-03 04:15:45.071317
 /ip firewall address-list remove [find list=vn_ipv4]
 /ip firewall address-list add list=vn_ipv4 address=1.0.0.1/32
 /ip firewall address-list add list=vn_ipv4 address=1.1.1.1/32
