@@ -3,8 +3,8 @@ import ipaddress
 import datetime
 import re
 
-# --- CẤU HÌNH WHITELIST (IP luôn ưu tiên đi đường Việt Nam - Ping 1ms-5ms) ---
-# Thêm DNS Cloudflare và Google để đảm bảo các dịch vụ này luôn chạy "hộ khẩu" VN
+# --- CẤU HÌNH WHITELIST (IP ưu tiên đi đường VN để đạt Ping 1ms - 5ms) ---
+# Tích hợp sẵn DNS Cloudflare và Google vào danh sách VN
 WHITELIST = ["1.1.1.1/32", "1.0.0.1/32", "8.8.8.8/32", "8.8.4.4/32"]
 
 def get_latest_vnnic_url():
@@ -21,14 +21,15 @@ def get_latest_vnnic_url():
             headers = {'User-Agent': 'Mozilla/5.0'}
             resp = requests.head(test_url, headers=headers, timeout=10)
             if resp.status_code == 200:
-                print(f"[+] Tìm thấy nguồn VNNIC: {year_month}")
+                print(f"[+] Tim thay nguon VNNIC: {year_month}")
                 return test_url
         except: continue
+    # Link dự phòng nếu không tìm thấy file mới
     return "https://vnnic.vn/sites/default/files/202508-thongkeipv4vietnam.txt"
 
 def get_ips(url, label):
-    """Tải và trích xuất IP từ các định dạng khác nhau"""
-    print(f"[*] Đang lấy dữ liệu từ {label}...")
+    """Tải và trích xuất IP từ các định dạng APNIC, VNNIC, GitHub, IP2Location"""
+    print(f"[*] Dang lay du lieu tu {label}...")
     headers = {'User-Agent': 'Mozilla/5.0'}
     networks = []
     try:
@@ -36,9 +37,9 @@ def get_ips(url, label):
         resp.raise_for_status()
         for line in resp.text.splitlines():
             line = line.strip()
-            if not line or line.startswith('#') or line.startswith(';'): continue
+            if not line or line.startswith(('#', ';')): continue
             
-            # 1. Xử lý định dạng APNIC
+            # 1. Xử lý định dạng APNIC (apnic|VN|ipv4|...)
             if "apnic|VN|ipv4|" in line:
                 parts = line.split('|')
                 ip, count = parts[3], int(parts[4])
@@ -46,26 +47,27 @@ def get_ips(url, label):
                 networks.append(ipaddress.ip_network(f"{ip}/{prefix}"))
             
             # 2. Xử lý định dạng CIDR (VNNIC/GitHub/IP2Location) bằng RegEx
+            # RegEx này sẽ bắt được dải IP ngay cả khi có chữ "Allow from" của IP2Location
             else:
                 match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line)
                 if match:
                     try:
                         networks.append(ipaddress.ip_network(match.group(1)))
                     except: continue
-        print(f"    -> Thành công: {len(networks)} dải IP.")
+        print(f"    -> Thanh cong: {len(networks)} dai IP.")
         return networks
     except Exception as e:
-        print(f"    [!] Lỗi tại {label}: {e}")
+        print(f"    [!] Loi tai {label}: {e}")
         return []
 
 def main():
     vnnic_url = get_latest_vnnic_url()
     
-    # DANH SÁCH NGUỒN GỘP: Thêm IP2Location (Bản CIDR cho Việt Nam)
+    # DANH SÁCH NGUỒN GỘP (Đã sửa link IP2Location sang bản Raw CIDR)
     sources = [
-        {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC (Khu vực)"},
+        {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC (Khu vuc)"},
         {"url": "https://raw.githubusercontent.com/herrbischoff/country-ip-blocks/master/ipv4/vn.cidr", "label": "GitHub GeoIP"},
-        {"url": "https://www.ip2location.com/free/visitor-blocker", "label": "IP2Location Visitor Blocker"},
+        {"url": "https://raw.githubusercontent.com/ip2location/ip2location-visitor-blocker/master/apache-cidr/VN.txt", "label": "IP2Location (Raw CIDR)"},
         {"url": vnnic_url, "label": "VNNIC (Official)"}
     ]
 
@@ -73,30 +75,31 @@ def main():
     for src in sources:
         all_nets.extend(get_ips(src['url'], src['label']))
 
-    # Thêm Whitelist DNS để tối ưu tốc độ truy cập dịch vụ quốc tế
+    # Thêm Whitelist vào danh sách tổng
     for item in WHITELIST:
         all_nets.append(ipaddress.ip_network(item))
 
-    print(f"\n[#] Tổng số IP thô thu thập được: {len(all_nets)}")
+    print(f"\n[#] Tong so IP thô thu thap duoc: {len(all_nets)}")
 
-    # THUẬT TOÁN TỐI ƯU: Gộp dải (Collapse) để giảm tải cho hEX RB750Gr3
-    # Việc gộp hàng nghìn dải IP nhỏ thành các dải lớn cực kỳ quan trọng cho CPU Router
+    # THUẬT TOÁN TỐI ƯU: Gộp dải (Collapse) để giảm tải CPU cho hEX RB750Gr3
     merged_nets = list(ipaddress.collapse_addresses(all_nets))
     
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     with open("vn_ipv4.rsc", "w") as f:
-        f.write(f"# Danh sach IP Viet Nam (VNNIC + APNIC + IP2Location)\n")
+        # Ghi chú thông tin file
+        f.write(f"# Danh sach IP Viet Nam (Tong hop VNNIC + APNIC + IP2Location)\n")
         f.write(f"# San xuat luc: {now_str}\n")
         
-        # Lệnh xóa danh sách cũ trước khi nạp mới
+        # Lệnh xóa sạch danh sách cũ trên Mikrotik trước khi nạp mới
         f.write("/ip firewall address-list remove [find list=vn_ipv4]\n")
         
+        # Ghi từng dải IP đã được tối ưu vào file
         for net in merged_nets:
             f.write(f"/ip firewall address-list add list=vn_ipv4 address={net}\n")
             
-    print(f"[#] Số lượng IP sau khi nén: {len(merged_nets)}")
-    print(f"[V] Đã xuất file vn_ipv4.rsc thành công!")
+    print(f"[#] So luong IP sau khi nen (Collapse): {len(merged_nets)}")
+    print(f"[V] Da xuat file vn_ipv4.rsc thanh cong luc {now_str}!")
 
 if __name__ == "__main__":
     main()
