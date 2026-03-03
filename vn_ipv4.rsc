@@ -1,5 +1,5 @@
-# Danh sach IP Viet Nam (VNNIC + APNIC + IP2Location)
-# San xuat luc: 2026-03-03 00:57:55
+# VN IP List (Multi-Source: GeoLite2 + VNNIC + APNIC)
+# Cập nhật lúc: 2026-03-03 01:16:37
 /ip firewall address-list remove [find list=vn_ipv4]
 /ip firewall address-list add list=vn_ipv4 address=1.0.0.1/32
 /ip firewall address-list add list=vn_ipv4 address=1.1.1.1/32
@@ -14,7 +14,6 @@
 /ip firewall address-list add list=vn_ipv4 address=27.2.0.0/15
 /ip firewall address-list add list=vn_ipv4 address=27.64.0.0/12
 /ip firewall address-list add list=vn_ipv4 address=27.118.16.0/20
-/ip firewall address-list add list=vn_ipv4 address=31.25.10.0/24
 /ip firewall address-list add list=vn_ipv4 address=36.50.16.0/23
 /ip firewall address-list add list=vn_ipv4 address=36.50.24.0/22
 /ip firewall address-list add list=vn_ipv4 address=36.50.28.0/23
@@ -809,7 +808,6 @@
 /ip firewall address-list add list=vn_ipv4 address=103.255.84.0/22
 /ip firewall address-list add list=vn_ipv4 address=103.255.160.0/23
 /ip firewall address-list add list=vn_ipv4 address=103.255.236.0/22
-/ip firewall address-list add list=vn_ipv4 address=109.70.236.0/24
 /ip firewall address-list add list=vn_ipv4 address=109.237.64.0/21
 /ip firewall address-list add list=vn_ipv4 address=110.35.64.0/20
 /ip firewall address-list add list=vn_ipv4 address=110.44.184.0/21
@@ -962,7 +960,6 @@
 /ip firewall address-list add list=vn_ipv4 address=160.22.160.0/23
 /ip firewall address-list add list=vn_ipv4 address=160.22.170.0/23
 /ip firewall address-list add list=vn_ipv4 address=160.22.172.0/22
-/ip firewall address-list add list=vn_ipv4 address=160.25.14.0/23
 /ip firewall address-list add list=vn_ipv4 address=160.25.72.0/21
 /ip firewall address-list add list=vn_ipv4 address=160.25.80.0/21
 /ip firewall address-list add list=vn_ipv4 address=160.25.88.0/23
@@ -1143,8 +1140,6 @@
 /ip firewall address-list add list=vn_ipv4 address=183.91.0.0/19
 /ip firewall address-list add list=vn_ipv4 address=183.91.160.0/19
 /ip firewall address-list add list=vn_ipv4 address=192.223.12.0/22
-/ip firewall address-list add list=vn_ipv4 address=194.127.192.0/23
-/ip firewall address-list add list=vn_ipv4 address=195.85.19.0/24
 /ip firewall address-list add list=vn_ipv4 address=198.56.22.0/23
 /ip firewall address-list add list=vn_ipv4 address=202.0.79.0/24
 /ip firewall address-list add list=vn_ipv4 address=202.4.168.0/24
@@ -1235,7 +1230,6 @@
 /ip firewall address-list add list=vn_ipv4 address=210.86.224.0/20
 /ip firewall address-list add list=vn_ipv4 address=210.211.96.0/19
 /ip firewall address-list add list=vn_ipv4 address=210.245.0.0/17
-/ip firewall address-list add list=vn_ipv4 address=213.170.133.0/24
 /ip firewall address-list add list=vn_ipv4 address=218.100.10.0/24
 /ip firewall address-list add list=vn_ipv4 address=218.100.14.0/24
 /ip firewall address-list add list=vn_ipv4 address=218.100.60.0/24
