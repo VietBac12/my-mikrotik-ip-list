@@ -23,8 +23,8 @@ def get_latest_vnnic_url():
         except: continue
     return "https://vnnic.vn/sites/default/files/202508-thongkeipv4vietnam.txt"
 
-def get_ips(url, label):
-    """Tải và trích xuất IP (Có bộ lọc VN cho file CSV tổng)"""
+def get_ips(url, label, needs_filter=False):
+    """Tải và trích xuất IP (Hỗ trợ: APNIC pipe, CIDR, và IP Range)"""
     print(f"[*] Đang lấy dữ liệu từ {label}...")
     networks = []
     try:
@@ -34,23 +34,37 @@ def get_ips(url, label):
             line = line.strip()
             if not line or line.startswith(('#', ';', 'network')): continue
             
-            # 1. Lọc VN: Chỉ xử lý dòng có chứa mã quốc gia VN
-            # (Đặc biệt quan trọng cho file GeoLite2 CSV tổng của thế giới)
-            if "VN" in line or "apnic|VN|ipv4|" in line:
-                
-                # Xử lý APNIC
-                if "apnic|VN|ipv4|" in line:
-                    parts = line.split('|')
-                    ip, count = parts[3], int(parts[4])
-                    prefix = 32 - (count.bit_length() - 1)
-                    networks.append(ipaddress.ip_network(f"{ip}/{prefix}"))
-                
-                # Xử lý CIDR (Dùng Regex bắt x.x.x.x/y)
-                else:
-                    match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line)
-                    if match:
-                        try: networks.append(ipaddress.ip_network(match.group(1)))
-                        except: continue
+            # 1. Xử lý APNIC (apnic|VN|ipv4|...)
+            if "apnic|VN|ipv4|" in line:
+                parts = line.split('|')
+                ip, count = parts[3], int(parts[4])
+                prefix = 32 - (count.bit_length() - 1)
+                networks.append(ipaddress.ip_network(f"{ip}/{prefix}"))
+                continue
+
+            # 2. Xử lý định dạng RANGE (start_ip,end_ip,VN) - Dành riêng cho GeoLite2
+            if needs_filter and "," in line and "VN" in line:
+                parts = line.split(',')
+                if len(parts) >= 3:
+                    try:
+                        start_ip = parts[0].strip()
+                        end_ip = parts[1].strip()
+                        # Chuyển range thành các CIDR tương ứng
+                        summarized = ipaddress.summarize_address_range(
+                            ipaddress.IPv4Address(start_ip),
+                            ipaddress.IPv4Address(end_ip)
+                        )
+                        networks.extend(list(summarized))
+                        continue
+                    except: continue
+
+            # 3. Xử lý định dạng CIDR (Dành cho VNNIC, GitHub VN)
+            if not needs_filter or (needs_filter and "VN" in line):
+                match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line)
+                if match:
+                    try: networks.append(ipaddress.ip_network(match.group(1)))
+                    except: continue
+                    
         print(f"    -> Thành công: {len(networks)} dải IP.")
         return networks
     except Exception as e:
@@ -60,33 +74,33 @@ def get_ips(url, label):
 def main():
     vnnic_url = get_latest_vnnic_url()
     
-    # DANH SÁCH NGUỒN: Đã tích hợp link GeoLite2 mới của bạn
     sources = [
-        {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC (Chính thức)"},
-        {"url": "https://raw.githubusercontent.com/herrbischoff/country-ip-blocks/master/ipv4/vn.cidr", "label": "GitHub GeoIP Mirror"},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-country/geolite2-country-ipv4.csv", "label": "GeoLite2 (MaxMind)"},
-        {"url": vnnic_url, "label": "VNNIC (Official)"}
+        {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC (Chính thức)", "filter": False},
+        {"url": "https://raw.githubusercontent.com/herrbischoff/country-ip-blocks/master/ipv4/vn.cidr", "label": "GitHub GeoIP Mirror", "filter": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-country/geolite2-country-ipv4.csv", "label": "GeoLite2 (MaxMind)", "filter": True},
+        {"url": vnnic_url, "label": "VNNIC (Official)", "filter": False}
     ]
 
     all_nets = []
     for src in sources:
-        all_nets.extend(get_ips(src['url'], src['label']))
+        all_nets.extend(get_ips(src['url'], src['label'], needs_filter=src['filter']))
 
     for item in WHITELIST:
         all_nets.append(ipaddress.ip_network(item))
 
-    # THUẬT TOÁN TỐI ƯU: Gộp dải IP để Mikrotik hEX Gr3 chạy mượt nhất
+    print(f"\n[#] Tổng số IP thô thu thập được: {len(all_nets)}")
+
+    # Thuật toán tối ưu: Gộp dải IP (Collapse)
     merged_nets = list(ipaddress.collapse_addresses(all_nets))
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     with open("vn_ipv4.rsc", "w") as f:
-        f.write(f"# VN IP List (Multi-Source: GeoLite2 + VNNIC + APNIC)\n")
-        f.write(f"# Cập nhật lúc: {now_str}\n")
+        f.write(f"# VN IP List - Multi-Source - Updated: {now_str}\n")
         f.write("/ip firewall address-list remove [find list=vn_ipv4]\n")
         for net in merged_nets:
             f.write(f"/ip firewall address-list add list=vn_ipv4 address={net}\n")
             
-    print(f"\n[#] Tổng số IP sau khi nén (Collapse): {len(merged_nets)}")
+    print(f"[#] Số lượng IP sau khi nén: {len(merged_nets)}")
     print(f"[V] Đã xuất file vn_ipv4.rsc thành công!")
 
 if __name__ == "__main__":
