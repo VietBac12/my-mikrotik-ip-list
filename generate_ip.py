@@ -28,7 +28,7 @@ def get_ips(url, label, needs_filter=False):
     print(f"[*] Đang lấy dữ liệu từ {label}...")
     networks = []
     try:
-        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30)
+        resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=35)
         resp.raise_for_status()
         for line in resp.text.splitlines():
             line = line.strip()
@@ -43,7 +43,8 @@ def get_ips(url, label, needs_filter=False):
                 continue
 
             # 2. Xử lý định dạng RANGE CSV (start_ip,end_ip,VN)
-            if needs_filter and "," in line and "VN" in line:
+            # Phù hợp cho GeoLite2, iplocate, DB-IP và iptoasn
+            if needs_filter and "VN" in line:
                 parts = line.split(',')
                 if len(parts) >= 3:
                     try:
@@ -73,12 +74,15 @@ def get_ips(url, label, needs_filter=False):
 def main():
     vnnic_url = get_latest_vnnic_url()
     
-    # DANH SÁCH 5 NGUỒN GỘP: 
+    # DANH SÁCH 7 NGUỒN GỘP (Bao gồm 2 nguồn DB-IP và iptoasn mới)
     sources = [
         {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC (Chính thức)", "filter": False},
         {"url": "https://raw.githubusercontent.com/herrbischoff/country-ip-blocks/master/ipv4/vn.cidr", "label": "GitHub GeoIP Mirror", "filter": False},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-country/geolite2-country-ipv4.csv", "label": "GeoLite2 (MaxMind)", "filter": True},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iplocate-country/iplocate-country-ipv4.csv", "label": "iplocate-country", "filter": True},
+        # HAI NGUỒN MỚI BẠN YÊU CẦU:
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv4.csv", "label": "DB-IP (Precision)", "filter": True},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv4.csv", "label": "iptoasn-country", "filter": True},
         {"url": vnnic_url, "label": "VNNIC (Official)", "filter": False}
     ]
 
@@ -96,7 +100,7 @@ def main():
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     with open("vn_ipv4.rsc", "w") as f:
-        f.write(f"# VN IP List - Multi-Source (GeoLite2+iplocate+VNNIC) - Updated: {now_str}\n")
+        f.write(f"# VN IP List - Ultimate 7 Sources - Updated: {now_str}\n")
         f.write("/ip firewall address-list remove [find list=vn_ipv4]\n")
         for net in merged_nets:
             f.write(f"/ip firewall address-list add list=vn_ipv4 address={net}\n")
