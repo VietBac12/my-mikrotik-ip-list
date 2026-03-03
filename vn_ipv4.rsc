@@ -1,4 +1,4 @@
-# VN IP List - Final 8 Sources - Updated: 2026-03-03 02:53:08
+# VN IP List - Categorized 4 ISPs - Updated: 2026-03-03 03:09:45
 /ip firewall address-list remove [find list=vn_ipv4]
 /ip firewall address-list add list=vn_ipv4 address=1.0.0.1/32
 /ip firewall address-list add list=vn_ipv4 address=1.1.1.1/32
@@ -2559,3 +2559,7 @@
 /ip firewall address-list add list=vn_ipv4 address=222.252.0.0/14
 /ip firewall address-list add list=vn_ipv4 address=223.27.104.0/21
 /ip firewall address-list add list=vn_ipv4 address=223.130.10.0/23
+/ip firewall address-list remove [find list=vn_viettel]
+/ip firewall address-list remove [find list=vn_vnpt]
+/ip firewall address-list remove [find list=vn_fpt]
+/ip firewall address-list remove [find list=vn_mobifone]
