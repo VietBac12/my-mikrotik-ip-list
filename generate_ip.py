@@ -14,11 +14,10 @@ ISP_KEYWORDS = {
 }
 
 def get_latest_vnnic_url():
-    # Giữ nguyên logic tìm link VNNIC mới nhất
     return "https://vnnic.vn/sites/default/files/202508-thongkeipv4vietnam.txt"
 
 def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False):
-    """Xử lý thông minh: Thống kê số lượng theo từng nguồn"""
+    """Vừa lấy IP tổng, vừa phân loại ISP, tháo xích bộ lọc cho nguồn Native"""
     res = {"all": [], "viettel": [], "vnpt": [], "fpt": [], "mobifone": []}
     try:
         resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=35)
@@ -26,7 +25,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False):
             line_raw = line.strip()
             if not line_raw or line_raw.startswith(('#', ';')): continue
             
-            # A. PHÂN LOẠI ISP (Nguồn ASN - Cần keyword để xác nhận VN)
+            # A. PHÂN LOẠI ISP (Từ nguồn ASN Global - Cần keyword để xác nhận VN)
             if is_asn_source:
                 parts = line_raw.split(',')
                 if len(parts) >= 4:
@@ -42,7 +41,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False):
                         continue
                     except: continue
 
-            # B. LẤY IP TỔNG (Phá bỏ bộ lọc 'VN' cho nguồn Native)
+            # B. LẤY IP TỔNG (Lọc VN cho nguồn Global, Thả cửa cho nguồn Native VN)
             if is_vn_native or "VN" in line_raw or "apnic|VN|ipv4|" in line_raw:
                 # 1. APNIC Pipe
                 if "apnic|VN|ipv4|" in line_raw:
@@ -52,7 +51,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False):
                     res["all"].append(ipaddress.ip_network(f"{ip}/{prefix}"))
                     continue
                 # 2. CIDR
-                match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line_raw)
+                match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d.1,3}/\d{1,2})', line_raw)
                 if match:
                     try: res["all"].append(ipaddress.ip_network(match.group(1)))
                     except: continue
@@ -77,19 +76,19 @@ def main():
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv4.csv", "label": "DB-IP", "asn": False, "native": False},
         {"url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ip2location_country/ip2location_country_vn.netset", "label": "IP2Location VN (Native)", "asn": False, "native": True},
         {"url": get_latest_vnnic_url(), "label": "VNNIC (Native)", "asn": False, "native": True},
+        # KHÔI PHỤC LINK IPTOSASN-COUNTRY (Để lấy IP tổng ổn định)
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv4.csv", "label": "iptoasn-country", "asn": False, "native": False},
+        # GIỮ LINK ASN-SOURCE (Để phân loại nhà mạng)
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv4.csv", "label": "ASN-Source", "asn": True, "native": False}
     ]
 
     final_lists = {"vn_ipv4": [], "vn_viettel": [], "vn_vnpt": [], "vn_fpt": [], "vn_mobifone": []}
     
-    print(f"[*] BẮT ĐẦU THU THẬP DỮ LIỆU IP ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})")
-    print("-" * 60)
-    
+    print(f"[*] THU THẬP DỮ LIỆU IP - {datetime.datetime.now().strftime('%H:%M:%S')}")
+    print("-" * 70)
     for src in sources:
         data = get_ips_smart(src['url'], src['label'], is_asn_source=src['asn'], is_vn_native=src['native'])
-        count = len(data["all"])
-        print(f"[*] Đang xử lý {src['label']:<25} -> Thành công: {count:>5} dải IP.")
-        
+        print(f"[*] {src['label']:<25} -> Thành công: {len(data['all']):>5} dải IP.")
         final_lists["vn_ipv4"].extend(data["all"])
         final_lists["vn_viettel"].extend(data["viettel"])
         final_lists["vn_vnpt"].extend(data["vnpt"])
@@ -98,12 +97,12 @@ def main():
 
     for item in WHITELIST: final_lists["vn_ipv4"].append(ipaddress.ip_network(item))
 
-    print("-" * 60)
+    print("-" * 70)
     with open("vn_ipv4.rsc", "w") as f:
-        f.write(f"# VN IP List - Corrected Native - Updated: {datetime.datetime.now()}\n")
+        f.write(f"# VN IP List Ultimate - Updated: {datetime.datetime.now()}\n")
         for name, networks in final_lists.items():
             merged = list(ipaddress.collapse_addresses(networks))
-            print(f"[#] {name:<12}: {len(merged):>5} dải IP (Sau khi nén).")
+            print(f"[#] {name:<12}: {len(merged):>5} dải IP (Nén).")
             f.write(f"/ip firewall address-list remove [find list={name}]\n")
             for net in merged:
                 f.write(f"/ip firewall address-list add list={name} address={net}\n")
