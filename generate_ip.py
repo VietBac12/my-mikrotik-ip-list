@@ -22,7 +22,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
     try:
         resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=35)
         
-        # XỬ LÝ GOOGLE JSON
+        # 1. XỬ LÝ GOOGLE JSON
         if is_google:
             data = resp.json()
             for item in data.get("prefixes", []):
@@ -34,7 +34,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
             line_raw = line.strip()
             if not line_raw or line_raw.startswith(('#', ';')): continue
             
-            # A. PHÂN LOẠI ISP
+            # 2. PHÂN LOẠI ISP (Từ nguồn ASN)
             if is_asn_source:
                 parts = line_raw.split(',')
                 if len(parts) >= 4:
@@ -50,8 +50,9 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
                         continue
                     except: continue
 
-            # B. LẤY IP TỔNG (Bao gồm các nguồn phụ của bạn)
+            # 3. LẤY IP TỔNG (Lưu ý cờ is_vn_native ở đây)
             if is_vn_native or "VN" in line_raw or "apnic|VN|ipv4|" in line_raw:
+                # Xử lý định dạng APNIC Pipe
                 if "apnic|VN|ipv4|" in line_raw:
                     parts = line_raw.split('|')
                     ip, count = parts[3], int(parts[4])
@@ -59,10 +60,12 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
                     res["all"].append(ipaddress.ip_network(f"{ip}/{prefix}"))
                     continue
                 
+                # Xử lý Regex CIDR (Hỗ trợ link GitHub Native)
                 match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line_raw)
                 if match:
                     try: res["all"].append(ipaddress.ip_network(match.group(1)))
                     except: continue
+                # Xử lý Range IP (Dạng Start,End)
                 elif "," in line_raw:
                     parts = line_raw.split(',')
                     try:
@@ -75,7 +78,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
     except: return res
 
 def main():
-    # DANH SÁCH ĐẦY ĐỦ CÁC NGUỒN CỦA BẠN + GOOGLE
+    # DANH SÁCH NGUỒN (Đã sửa lỗi native: True cho GitHub và VNNIC)
     sources = [
         {"url": "https://www.gstatic.com/ipranges/goog.json", "label": "Google Official", "asn": False, "native": False, "google": True},
         {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC", "asn": False, "native": False, "google": False},
@@ -83,9 +86,9 @@ def main():
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv4.csv", "label": "GeoLite2", "asn": False, "native": False, "google": False},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv4.csv", "label": "iplocate-country", "asn": False, "native": False, "google": False},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv4.csv", "label": "DB-IP", "asn": False, "native": False, "google": False},
-        {"url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ip2location_country/ip2location_country_vn.netset", "label": "IP2Location VN", "asn": False, "native": True, "google": False},
+        {"url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ip2location_country/ip2location_country_vn.netset", "label": "IP2Location VN (Native)", "asn": False, "native": True, "google": False},
         {"url": get_latest_vnnic_url(), "label": "VNNIC (Native)", "asn": False, "native": True, "google": False},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv4.csv", "label": "iptoasn-country", "asn": False, "native": False, "google": False},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv4.csv", "label": "iptoasn-country", "asn": False, "native": False, "google": False},
     ]
 
     final_lists = {"vn_ipv4": [], "vn_viettel": [], "vn_vnpt": [], "vn_fpt": [], "vn_mobifone": [], "GOOGLE_IPS": []}
