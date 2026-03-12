@@ -35,10 +35,10 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
 
         for line in resp.text.splitlines():
             line_raw = line.strip()
-            # Bỏ qua comment (như các dòng # trong link ipverse)
+            # Bỏ qua comment
             if not line_raw or line_raw.startswith(('#', ';')): continue
             
-            # A. PHÂN LOẠI ISP (Từ nguồn ASN Global)
+            # A. PHÂN LOẠI ISP
             if is_asn_source:
                 parts = line_raw.split(',')
                 if len(parts) >= 4:
@@ -54,20 +54,18 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
                         continue
                     except: continue
 
-            # B. LẤY IP TỔNG (Đã cập nhật regex để bắt cả IPv6)
+            # B. LẤY IP TỔNG
             if is_vn_native or "VN" in line_raw or "apnic|VN|" in line_raw.lower():
                 if "apnic|vn|" in line_raw.lower():
                     parts = line_raw.split('|')
                     if len(parts) >= 5:
                         ip_type, ip_start, value = parts[2], parts[3], int(parts[4])
                         try:
-                            # Phân biệt xử lý prefix cho ipv4 và ipv6 từ APNIC
                             prefix = (32 - (value.bit_length() - 1)) if ip_type == 'ipv4' else value
                             res["all"].append(ipaddress.ip_network(f"{ip_start}/{prefix}"))
                             continue
                         except: continue
                 
-                # Regex nhận diện cả dấu "." của IPv4 và ":" của IPv6
                 match = re.search(r'([0-9a-fA-F:.]+/\d{1,3})', line_raw)
                 if match:
                     try: res["all"].append(ipaddress.ip_network(match.group(1)))
@@ -85,11 +83,10 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
 
 def main():
     sources = [
-        # MỚI: Google JSON
+        # GỐC: Google JSON
         {"url": "https://www.gstatic.com/ipranges/goog.json", "label": "Google Official", "asn": False, "native": False, "google": True},
-        # CẬP NHẬT: Link thay thế cho herrbischoff bị 404 (Bắt buộc để native: True)
+        # GỐC: Link IPv4
         {"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv4-aggregated.txt", "label": "GitHub VN (Native)", "asn": False, "native": True},
-        
         {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC", "asn": False, "native": False},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv4.csv", "label": "GeoLite2", "asn": False, "native": False},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv4.csv", "label": "iplocate-country", "asn": False, "native": False},
@@ -132,13 +129,16 @@ def main():
     with open("vn_ipv4_v6.rsc", "w") as f:
         f.write(f"# VN & Google IP List - Updated: {datetime.datetime.now()}\n")
         
-        for name, networks in final_lists.items():
+        for name, networks in final_items():
             if not networks: continue
-            merged = list(ipaddress.collapse_addresses(networks))
             
-            # Tách biệt v4 và v6
-            v4_nets = [n for n in merged if n.version == 4]
-            v6_nets = [n for n in merged if n.version == 6]
+            # SỬA LỖI Ở ĐÂY: Phải tách riêng v4 và v6 ra TRƯỚC khi nén
+            raw_v4 = [n for n in networks if n.version == 4]
+            raw_v6 = [n for n in networks if n.version == 6]
+            
+            # Nén riêng biệt từng phiên bản IP
+            v4_nets = list(ipaddress.collapse_addresses(raw_v4))
+            v6_nets = list(ipaddress.collapse_addresses(raw_v6))
             
             print(f"[#] {name:<12}: {len(v4_nets):>5} IPv4, {len(v6_nets):>5} IPv6 (Nén).")
             
