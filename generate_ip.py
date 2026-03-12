@@ -18,12 +18,11 @@ def get_latest_vnnic_url():
     return "https://vnnic.vn/sites/default/files/202508-thongkeipv4vietnam.txt"
 
 def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google=False):
-    """Xử lý thông minh: Giữ nguyên logic gốc, thêm parse JSON cho Google và nhận diện IPv6"""
     res = {"all": [], "viettel": [], "vnpt": [], "fpt": [], "mobifone": []}
     try:
         resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=35)
         
-        # Xử lý riêng cho Google JSON (Lấy cả v4 và v6)
+        # Xử lý riêng cho Google JSON
         if is_google:
             data = resp.json()
             for item in data.get("prefixes", []):
@@ -35,7 +34,6 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
 
         for line in resp.text.splitlines():
             line_raw = line.strip()
-            # Bỏ qua comment
             if not line_raw or line_raw.startswith(('#', ';')): continue
             
             # A. PHÂN LOẠI ISP
@@ -129,32 +127,31 @@ def main():
     with open("vn_ipv4.rsc", "w") as f:
         f.write(f"# VN & Google IP List - Updated: {datetime.datetime.now()}\n")
         
-        # ĐÃ SỬA: Đổi final_items() thành final_lists.items()
         for name, networks in final_lists.items():
             if not networks: continue
             
-            # Tách riêng v4 và v6 ra TRƯỚC khi nén
             raw_v4 = [n for n in networks if n.version == 4]
             raw_v6 = [n for n in networks if n.version == 6]
             
-            # Nén riêng biệt từng phiên bản IP
             v4_nets = list(ipaddress.collapse_addresses(raw_v4))
             v6_nets = list(ipaddress.collapse_addresses(raw_v6))
             
             print(f"[#] {name:<12}: {len(v4_nets):>5} IPv4, {len(v6_nets):>5} IPv6 (Nén).")
             
-            # Ghi lệnh IPv4
+            # 1. GHI LỆNH IPV4
             if v4_nets:
                 f.write(f"\n/ip firewall address-list\n")
                 f.write(f"remove [find list={name}]\n")
                 for net in v4_nets:
                     f.write(f"add list={name} address={net}\n")
             
-            # Ghi lệnh IPv6
+            # 2. GHI LỆNH IPV6 (Tự động đổi tên list ipv4 -> ipv6)
             if v6_nets:
+                name_v6 = name.replace("ipv4", "ipv6")
+                
                 f.write(f"\n/ipv6 firewall address-list\n")
-                f.write(f"remove [find list={name}]\n")
+                f.write(f"remove [find list={name_v6}]\n")
                 for net in v6_nets:
-                    f.write(f"add list={name} address={net}\n")
+                    f.write(f"add list={name_v6} address={net}\n")
 
 if __name__ == "__main__": main()
