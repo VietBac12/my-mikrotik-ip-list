@@ -129,10 +129,11 @@ def main():
     with open("vn_ipv4_v6.rsc", "w") as f:
         f.write(f"# VN & Google IP List - Updated: {datetime.datetime.now()}\n")
         
-        for name, networks in final_items():
+        # ĐÃ SỬA: Đổi final_items() thành final_lists.items()
+        for name, networks in final_lists.items():
             if not networks: continue
             
-            # SỬA LỖI Ở ĐÂY: Phải tách riêng v4 và v6 ra TRƯỚC khi nén
+            # Tách riêng v4 và v6 ra TRƯỚC khi nén
             raw_v4 = [n for n in networks if n.version == 4]
             raw_v6 = [n for n in networks if n.version == 6]
             
