@@ -126,7 +126,7 @@ def main():
     for item in WHITELIST: final_lists["vn_ipv4"].append(ipaddress.ip_network(item))
 
     print("-" * 70)
-    with open("vn_ipv4_v6.rsc", "w") as f:
+    with open("vn_ipv4.rsc", "w") as f:
         f.write(f"# VN & Google IP List - Updated: {datetime.datetime.now()}\n")
         
         # ĐÃ SỬA: Đổi final_items() thành final_lists.items()
