@@ -18,17 +18,19 @@ def get_latest_vnnic_url():
     return "https://vnnic.vn/sites/default/files/202508-thongkeipv4vietnam.txt"
 
 def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google=False):
-    """Xử lý thông minh: Giữ nguyên logic gốc, thêm parse JSON cho Google"""
+    """Xử lý thông minh: Giữ nguyên logic gốc, thêm parse JSON cho Google và nhận diện IPv6"""
     res = {"all": [], "viettel": [], "vnpt": [], "fpt": [], "mobifone": []}
     try:
         resp = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=35)
         
-        # Xử lý riêng cho Google JSON
+        # Xử lý riêng cho Google JSON (Lấy cả v4 và v6)
         if is_google:
             data = resp.json()
             for item in data.get("prefixes", []):
                 if "ipv4Prefix" in item:
                     res["all"].append(ipaddress.ip_network(item["ipv4Prefix"]))
+                if "ipv6Prefix" in item:
+                    res["all"].append(ipaddress.ip_network(item["ipv6Prefix"]))
             return res
 
         for line in resp.text.splitlines():
@@ -45,35 +47,39 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
                         for isp, keys in ISP_KEYWORDS.items():
                             if any(key in org_name for key in keys):
                                 nets = list(ipaddress.summarize_address_range(
-                                    ipaddress.IPv4Address(start), ipaddress.IPv4Address(end)
+                                    ipaddress.ip_address(start), ipaddress.ip_address(end)
                                 ))
                                 res[isp].extend(nets)
                                 res["all"].extend(nets)
                         continue
                     except: continue
 
-            # B. LẤY IP TỔNG
-            # Link mới KHÔNG có chữ VN trên từng dòng, nên native PHẢI là True
-            if is_vn_native or "VN" in line_raw or "apnic|VN|ipv4|" in line_raw:
-                if "apnic|VN|ipv4|" in line_raw:
+            # B. LẤY IP TỔNG (Đã cập nhật regex để bắt cả IPv6)
+            if is_vn_native or "VN" in line_raw or "apnic|VN|" in line_raw.lower():
+                if "apnic|vn|" in line_raw.lower():
                     parts = line_raw.split('|')
-                    ip, count = parts[3], int(parts[4])
-                    prefix = 32 - (count.bit_length() - 1)
-                    res["all"].append(ipaddress.ip_network(f"{ip}/{prefix}"))
-                    continue
+                    if len(parts) >= 5:
+                        ip_type, ip_start, value = parts[2], parts[3], int(parts[4])
+                        try:
+                            # Phân biệt xử lý prefix cho ipv4 và ipv6 từ APNIC
+                            prefix = (32 - (value.bit_length() - 1)) if ip_type == 'ipv4' else value
+                            res["all"].append(ipaddress.ip_network(f"{ip_start}/{prefix}"))
+                            continue
+                        except: continue
                 
-                match = re.search(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2})', line_raw)
+                # Regex nhận diện cả dấu "." của IPv4 và ":" của IPv6
+                match = re.search(r'([0-9a-fA-F:.]+/\d{1,3})', line_raw)
                 if match:
                     try: res["all"].append(ipaddress.ip_network(match.group(1)))
-                    except: continue
+                    except: pass
                 elif "," in line_raw:
                     parts = line_raw.split(',')
                     try:
                         nets = ipaddress.summarize_address_range(
-                            ipaddress.IPv4Address(parts[0].strip()), ipaddress.IPv4Address(parts[1].strip())
+                            ipaddress.ip_address(parts[0].strip()), ipaddress.ip_address(parts[1].strip())
                         )
                         res["all"].extend(list(nets))
-                    except: continue
+                    except: pass
         return res
     except: return res
 
@@ -91,7 +97,15 @@ def main():
         {"url": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/ip2location_country/ip2location_country_vn.netset", "label": "IP2Location VN (Native)", "asn": False, "native": True},
         {"url": get_latest_vnnic_url(), "label": "VNNIC (Native)", "asn": False, "native": True},
         {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv4.csv", "label": "iptoasn-country", "asn": False, "native": False},
-        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv4.csv", "label": "ASN-Source", "asn": True, "native": False}
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv4.csv", "label": "ASN-Source", "asn": True, "native": False},
+        
+        # --- CÁC NGUỒN IPV6 BỔ SUNG ---
+        {"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv6-aggregated.txt", "label": "GitHub VN IPv6 (Native)", "asn": False, "native": True},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv6.csv", "label": "GeoLite2 IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv6.csv", "label": "iplocate-country IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv6.csv", "label": "DB-IP IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv6.csv", "label": "iptoasn-country IPv6", "asn": False, "native": False},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv6.csv", "label": "ASN-Source IPv6", "asn": True, "native": False}
     ]
 
     final_lists = {"vn_ipv4": [], "vn_viettel": [], "vn_vnpt": [], "vn_fpt": [], "vn_mobifone": [], "vn_isp_all": [], "GOOGLE_IPS": []}
@@ -115,15 +129,31 @@ def main():
     for item in WHITELIST: final_lists["vn_ipv4"].append(ipaddress.ip_network(item))
 
     print("-" * 70)
-    with open("vn_ipv4.rsc", "w") as f:
+    with open("vn_ipv4_v6.rsc", "w") as f:
         f.write(f"# VN & Google IP List - Updated: {datetime.datetime.now()}\n")
-        f.write("/ip firewall address-list\n")
+        
         for name, networks in final_lists.items():
             if not networks: continue
             merged = list(ipaddress.collapse_addresses(networks))
-            print(f"[#] {name:<12}: {len(merged):>5} dải IP (Nén).")
-            f.write(f"remove [find list={name}]\n")
-            for net in merged:
-                f.write(f"add list={name} address={net}\n")
+            
+            # Tách biệt v4 và v6
+            v4_nets = [n for n in merged if n.version == 4]
+            v6_nets = [n for n in merged if n.version == 6]
+            
+            print(f"[#] {name:<12}: {len(v4_nets):>5} IPv4, {len(v6_nets):>5} IPv6 (Nén).")
+            
+            # Ghi lệnh IPv4
+            if v4_nets:
+                f.write(f"\n/ip firewall address-list\n")
+                f.write(f"remove [find list={name}]\n")
+                for net in v4_nets:
+                    f.write(f"add list={name} address={net}\n")
+            
+            # Ghi lệnh IPv6
+            if v6_nets:
+                f.write(f"\n/ipv6 firewall address-list\n")
+                f.write(f"remove [find list={name}]\n")
+                for net in v6_nets:
+                    f.write(f"add list={name} address={net}\n")
 
 if __name__ == "__main__": main()
