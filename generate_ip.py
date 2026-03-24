@@ -82,7 +82,7 @@ def get_ips_smart(url, label, is_asn_source=False, is_vn_native=False, is_google
 def main():
     sources = [
         # GỐC: Google JSON
-        {"url": "https://www.gstatic.com/ipranges/goog.json", "label": "Google Official", "asn": False, "native": False, "google": True},
+        #{"url": "https://www.gstatic.com/ipranges/goog.json", "label": "Google Official", "asn": False, "native": False, "google": True},
         # GỐC: Link IPv4
         {"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv4-aggregated.txt", "label": "GitHub VN (Native)", "asn": False, "native": True},
         {"url": "https://ftp.apnic.net/stats/apnic/delegated-apnic-latest", "label": "APNIC", "asn": False, "native": False},
@@ -95,11 +95,11 @@ def main():
         #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv4.csv", "label": "ASN-Source", "asn": True, "native": False},
         
         # --- CÁC NGUỒN IPV6 BỔ SUNG ---
-        {"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv6-aggregated.txt", "label": "GitHub VN IPv6 (Native)", "asn": False, "native": True},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv6.csv", "label": "GeoLite2 IPv6", "asn": False, "native": False},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv6.csv", "label": "iplocate-country IPv6", "asn": False, "native": False},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv6.csv", "label": "DB-IP IPv6", "asn": False, "native": False},
-        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv6.csv", "label": "iptoasn-country IPv6", "asn": False, "native": False},
+        #{"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv6-aggregated.txt", "label": "GitHub VN IPv6 (Native)", "asn": False, "native": True},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv6.csv", "label": "GeoLite2 IPv6", "asn": False, "native": False},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv6.csv", "label": "iplocate-country IPv6", "asn": False, "native": False},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv6.csv", "label": "DB-IP IPv6", "asn": False, "native": False},
+        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv6.csv", "label": "iptoasn-country IPv6", "asn": False, "native": False},
         #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv6.csv", "label": "ASN-Source IPv6", "asn": True, "native": False}
     ]
 
