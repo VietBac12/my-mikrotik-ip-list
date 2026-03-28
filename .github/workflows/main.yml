@@ -1,13 +1,15 @@
 name: Update Mikrotik IP List
 
-# Vẫn giữ cái này để nếu có lỡ tay bấm nút 2 lần thì nó tự hủy bản cũ
+# Giữ nguyên để tránh xung đột nếu chạy đè nhau
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 on:
-  # XÓA PHẦN SCHEDULE Ở ĐÂY
-  workflow_dispatch: # Chỉ giữ lại cái này để kích hoạt bằng tay/API
+  schedule:
+    # Chạy vào 00:00 (giờ UTC) ngày 1 hàng tháng
+    - cron: '0 0 1 * *'
+  workflow_dispatch: # Vẫn giữ để bạn có thể bấm nút chạy tay khi cần
 
 jobs:
   build:
@@ -36,7 +38,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add vn_ipv4.rsc
-          git commit -m "🚀 Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
+          git commit -m "🚀 Monthly Auto-update: $(date +'%Y-%m-%d %H:%M:%S')" || exit 0
           git push
 
       - name: Delete old workflow runs
