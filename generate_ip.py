@@ -95,11 +95,11 @@ def main():
         #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv4.csv", "label": "ASN-Source", "asn": True, "native": False},
         
         # --- CÁC NGUỒN IPV6 BỔ SUNG ---
-        #{"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv6-aggregated.txt", "label": "GitHub VN IPv6 (Native)", "asn": False, "native": True},
-        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv6.csv", "label": "GeoLite2 IPv6", "asn": False, "native": False},
-        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv6.csv", "label": "iplocate-country IPv6", "asn": False, "native": False},
-        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv6.csv", "label": "DB-IP IPv6", "asn": False, "native": False},
-        #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv6.csv", "label": "iptoasn-country IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/ipverse/country-ip-blocks/master/country/vn/ipv6-aggregated.txt", "label": "GitHub VN IPv6 (Native)", "asn": False, "native": True},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv6.csv", "label": "GeoLite2 IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/iplocate-country/iplocate-country-ipv6.csv", "label": "iplocate-country IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/dbip-country/dbip-country-ipv6.csv", "label": "DB-IP IPv6", "asn": False, "native": False},
+        {"url": "https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/iptoasn-country/iptoasn-country-ipv6.csv", "label": "iptoasn-country IPv6", "asn": False, "native": False},
         #{"url": "https://raw.githubusercontent.com/sapics/ip-location-db/main/asn/asn-ipv6.csv", "label": "ASN-Source IPv6", "asn": True, "native": False}
     ]
 
