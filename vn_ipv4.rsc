@@ -1,4 +1,4 @@
-# VN & Google IP List - Updated: 2026-08-01 01:57:49.506888
+# VN & Google IP List - Updated: 2026-08-01 20:30:35.520661
 
 /ip firewall address-list
 remove [find list=vn_ipv4]
