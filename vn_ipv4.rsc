@@ -1,4 +1,4 @@
-# VN & Google IP List - Updated: 2026-08-01 20:30:35.520661
+# VN & Google IP List - Updated: 2026-09-01 02:43:36.689395
 
 /ip firewall address-list
 remove [find list=vn_ipv4]
@@ -48,6 +48,7 @@ add list=vn_ipv4 address=8.148.36.0/23
 add list=vn_ipv4 address=8.148.39.0/24
 add list=vn_ipv4 address=8.209.44.0/22
 add list=vn_ipv4 address=8.212.192.0/18
+add list=vn_ipv4 address=9.176.208.0/20
 add list=vn_ipv4 address=13.104.184.224/28
 add list=vn_ipv4 address=13.227.165.0/24
 add list=vn_ipv4 address=13.227.166.0/24
@@ -61,6 +62,7 @@ add list=vn_ipv4 address=13.227.226.0/23
 add list=vn_ipv4 address=13.227.232.0/21
 add list=vn_ipv4 address=14.0.16.0/20
 add list=vn_ipv4 address=14.0.51.0/24
+add list=vn_ipv4 address=14.0.125.0/24
 add list=vn_ipv4 address=14.160.0.0/11
 add list=vn_ipv4 address=14.224.0.0/11
 add list=vn_ipv4 address=15.158.12.0/25
@@ -161,7 +163,6 @@ add list=vn_ipv4 address=38.54.14.0/23
 add list=vn_ipv4 address=38.54.30.0/23
 add list=vn_ipv4 address=38.54.90.0/23
 add list=vn_ipv4 address=38.54.115.0/24
-add list=vn_ipv4 address=38.60.139.0/24
 add list=vn_ipv4 address=38.60.219.0/24
 add list=vn_ipv4 address=38.60.225.0/24
 add list=vn_ipv4 address=38.60.228.0/23
@@ -177,7 +178,6 @@ add list=vn_ipv4 address=42.112.0.0/13
 add list=vn_ipv4 address=43.109.16.0/24
 add list=vn_ipv4 address=43.109.48.0/24
 add list=vn_ipv4 address=43.109.93.0/24
-add list=vn_ipv4 address=43.109.141.0/24
 add list=vn_ipv4 address=43.109.176.0/24
 add list=vn_ipv4 address=43.132.68.0/24
 add list=vn_ipv4 address=43.132.92.0/24
@@ -226,6 +226,7 @@ add list=vn_ipv4 address=45.91.35.0/24
 add list=vn_ipv4 address=45.91.179.0/24
 add list=vn_ipv4 address=45.95.128.0/24
 add list=vn_ipv4 address=45.115.16.0/23
+add list=vn_ipv4 address=45.115.26.0/24
 add list=vn_ipv4 address=45.117.76.0/22
 add list=vn_ipv4 address=45.117.80.0/22
 add list=vn_ipv4 address=45.117.156.0/22
@@ -282,6 +283,7 @@ add list=vn_ipv4 address=45.252.248.0/22
 add list=vn_ipv4 address=45.254.32.0/22
 add list=vn_ipv4 address=46.149.134.0/23
 add list=vn_ipv4 address=46.149.136.0/22
+add list=vn_ipv4 address=46.203.250.0/24
 add list=vn_ipv4 address=46.244.29.192/28
 add list=vn_ipv4 address=47.89.102.0/24
 add list=vn_ipv4 address=47.89.121.0/24
@@ -296,14 +298,9 @@ add list=vn_ipv4 address=49.213.64.0/18
 add list=vn_ipv4 address=49.236.208.0/22
 add list=vn_ipv4 address=49.246.128.0/18
 add list=vn_ipv4 address=49.246.192.0/19
-add list=vn_ipv4 address=51.79.129.40/29
-add list=vn_ipv4 address=51.79.129.48/28
-add list=vn_ipv4 address=51.79.129.64/26
-add list=vn_ipv4 address=51.79.129.128/25
-add list=vn_ipv4 address=51.79.131.64/26
-add list=vn_ipv4 address=51.79.131.128/25
 add list=vn_ipv4 address=51.79.234.0/27
 add list=vn_ipv4 address=51.79.234.32/28
+add list=vn_ipv4 address=51.194.172.0/24
 add list=vn_ipv4 address=52.46.57.0/25
 add list=vn_ipv4 address=57.72.68.0/22
 add list=vn_ipv4 address=57.93.80.0/20
@@ -363,7 +360,6 @@ add list=vn_ipv4 address=72.37.146.0/24
 add list=vn_ipv4 address=72.57.186.0/23
 add list=vn_ipv4 address=72.57.188.0/22
 add list=vn_ipv4 address=72.57.192.0/22
-add list=vn_ipv4 address=74.0.16.0/23
 add list=vn_ipv4 address=74.245.16.0/23
 add list=vn_ipv4 address=74.245.197.0/24
 add list=vn_ipv4 address=74.245.254.0/24
@@ -378,6 +374,7 @@ add list=vn_ipv4 address=81.200.236.0/22
 add list=vn_ipv4 address=82.23.171.0/24
 add list=vn_ipv4 address=82.27.129.0/24
 add list=vn_ipv4 address=82.41.246.0/24
+add list=vn_ipv4 address=82.47.187.0/24
 add list=vn_ipv4 address=82.109.177.0/24
 add list=vn_ipv4 address=82.117.82.0/24
 add list=vn_ipv4 address=82.117.90.0/24
@@ -412,6 +409,7 @@ add list=vn_ipv4 address=101.33.30.0/23
 add list=vn_ipv4 address=101.36.102.0/23
 add list=vn_ipv4 address=101.44.216.0/22
 add list=vn_ipv4 address=101.44.240.0/22
+add list=vn_ipv4 address=101.45.202.0/24
 add list=vn_ipv4 address=101.53.0.0/18
 add list=vn_ipv4 address=101.96.12.0/22
 add list=vn_ipv4 address=101.96.64.0/18
@@ -726,7 +724,6 @@ add list=vn_ipv4 address=103.131.84.0/23
 add list=vn_ipv4 address=103.133.100.0/22
 add list=vn_ipv4 address=103.133.104.0/21
 add list=vn_ipv4 address=103.133.224.0/22
-add list=vn_ipv4 address=103.134.75.0/24
 add list=vn_ipv4 address=103.135.28.0/22
 add list=vn_ipv4 address=103.136.114.0/23
 add list=vn_ipv4 address=103.136.228.0/23
@@ -1348,11 +1345,13 @@ add list=vn_ipv4 address=104.30.170.218/32
 add list=vn_ipv4 address=104.30.172.71/32
 add list=vn_ipv4 address=104.30.172.72/31
 add list=vn_ipv4 address=104.30.172.74/32
+add list=vn_ipv4 address=104.30.175.111/32
 add list=vn_ipv4 address=104.30.176.115/32
 add list=vn_ipv4 address=104.30.178.119/32
 add list=vn_ipv4 address=104.30.179.165/32
 add list=vn_ipv4 address=104.140.42.0/24
 add list=vn_ipv4 address=104.164.168.0/24
+add list=vn_ipv4 address=104.204.190.125/32
 add list=vn_ipv4 address=104.218.166.0/24
 add list=vn_ipv4 address=104.234.151.0/24
 add list=vn_ipv4 address=107.151.140.0/24
@@ -1363,9 +1362,10 @@ add list=vn_ipv4 address=107.155.62.0/24
 add list=vn_ipv4 address=108.157.12.0/22
 add list=vn_ipv4 address=108.157.16.0/21
 add list=vn_ipv4 address=108.157.24.0/24
-add list=vn_ipv4 address=108.157.27.0/24
-add list=vn_ipv4 address=108.157.28.0/22
-add list=vn_ipv4 address=108.157.32.0/21
+add list=vn_ipv4 address=108.157.29.0/24
+add list=vn_ipv4 address=108.157.30.0/23
+add list=vn_ipv4 address=108.157.32.0/24
+add list=vn_ipv4 address=108.157.39.0/24
 add list=vn_ipv4 address=108.159.193.0/24
 add list=vn_ipv4 address=108.165.65.0/24
 add list=vn_ipv4 address=108.165.110.0/24
@@ -1459,17 +1459,6 @@ add list=vn_ipv4 address=128.77.103.160/27
 add list=vn_ipv4 address=128.90.53.0/24
 add list=vn_ipv4 address=128.90.77.0/24
 add list=vn_ipv4 address=128.90.78.0/24
-add list=vn_ipv4 address=129.134.85.230/31
-add list=vn_ipv4 address=129.134.85.232/29
-add list=vn_ipv4 address=129.134.85.240/28
-add list=vn_ipv4 address=129.134.86.0/25
-add list=vn_ipv4 address=129.134.86.128/26
-add list=vn_ipv4 address=129.134.86.192/27
-add list=vn_ipv4 address=129.134.86.224/28
-add list=vn_ipv4 address=129.134.86.240/29
-add list=vn_ipv4 address=129.134.86.248/30
-add list=vn_ipv4 address=129.134.86.252/31
-add list=vn_ipv4 address=129.134.86.254/32
 add list=vn_ipv4 address=129.226.16.0/20
 add list=vn_ipv4 address=129.226.32.0/20
 add list=vn_ipv4 address=130.41.4.128/26
@@ -1518,6 +1507,7 @@ add list=vn_ipv4 address=131.229.248.26/32
 add list=vn_ipv4 address=131.229.248.154/32
 add list=vn_ipv4 address=131.229.255.26/32
 add list=vn_ipv4 address=131.229.255.154/32
+add list=vn_ipv4 address=134.82.74.112/29
 add list=vn_ipv4 address=134.159.231.0/24
 add list=vn_ipv4 address=134.159.240.0/23
 add list=vn_ipv4 address=134.168.239.0/24
@@ -1541,10 +1531,6 @@ add list=vn_ipv4 address=138.252.218.0/23
 add list=vn_ipv4 address=138.252.244.0/23
 add list=vn_ipv4 address=139.5.109.0/24
 add list=vn_ipv4 address=139.81.242.0/23
-add list=vn_ipv4 address=139.99.6.24/29
-add list=vn_ipv4 address=139.99.6.32/27
-add list=vn_ipv4 address=139.99.6.64/26
-add list=vn_ipv4 address=139.99.6.128/25
 add list=vn_ipv4 address=139.99.17.28/30
 add list=vn_ipv4 address=139.99.17.32/27
 add list=vn_ipv4 address=139.99.17.64/26
@@ -1664,7 +1650,8 @@ add list=vn_ipv4 address=151.240.83.0/24
 add list=vn_ipv4 address=151.240.116.0/24
 add list=vn_ipv4 address=151.242.23.0/24
 add list=vn_ipv4 address=151.242.171.0/24
-add list=vn_ipv4 address=151.242.212.0/22
+add list=vn_ipv4 address=151.242.212.0/23
+add list=vn_ipv4 address=151.242.214.0/24
 add list=vn_ipv4 address=151.242.216.0/24
 add list=vn_ipv4 address=151.244.169.0/24
 add list=vn_ipv4 address=152.32.160.0/22
@@ -1705,8 +1692,6 @@ add list=vn_ipv4 address=154.193.108.0/23
 add list=vn_ipv4 address=154.193.110.0/24
 add list=vn_ipv4 address=154.196.4.0/24
 add list=vn_ipv4 address=154.196.142.0/23
-add list=vn_ipv4 address=154.198.9.0/24
-add list=vn_ipv4 address=154.198.10.0/24
 add list=vn_ipv4 address=154.198.169.0/24
 add list=vn_ipv4 address=154.198.170.0/23
 add list=vn_ipv4 address=154.200.0.0/18
@@ -1721,15 +1706,14 @@ add list=vn_ipv4 address=154.200.100.0/22
 add list=vn_ipv4 address=154.200.104.0/22
 add list=vn_ipv4 address=154.200.108.0/23
 add list=vn_ipv4 address=154.200.111.0/24
-add list=vn_ipv4 address=154.201.7.0/24
 add list=vn_ipv4 address=154.203.8.0/21
 add list=vn_ipv4 address=154.203.150.0/24
 add list=vn_ipv4 address=154.203.164.0/24
 add list=vn_ipv4 address=154.205.140.0/24
 add list=vn_ipv4 address=154.205.142.0/23
-add list=vn_ipv4 address=154.211.30.0/24
 add list=vn_ipv4 address=155.94.169.0/24
-add list=vn_ipv4 address=155.102.16.0/22
+add list=vn_ipv4 address=155.102.16.0/23
+add list=vn_ipv4 address=155.102.19.0/24
 add list=vn_ipv4 address=155.102.20.0/24
 add list=vn_ipv4 address=155.102.48.0/23
 add list=vn_ipv4 address=155.102.50.0/24
@@ -1753,7 +1737,6 @@ add list=vn_ipv4 address=156.59.128.0/20
 add list=vn_ipv4 address=156.59.224.0/23
 add list=vn_ipv4 address=156.59.241.0/24
 add list=vn_ipv4 address=156.107.100.8/29
-add list=vn_ipv4 address=156.227.201.0/24
 add list=vn_ipv4 address=156.227.202.0/24
 add list=vn_ipv4 address=156.227.220.0/22
 add list=vn_ipv4 address=156.227.228.0/22
@@ -1936,6 +1919,7 @@ add list=vn_ipv4 address=160.236.140.0/23
 add list=vn_ipv4 address=160.236.190.0/23
 add list=vn_ipv4 address=160.236.192.0/23
 add list=vn_ipv4 address=160.236.196.0/23
+add list=vn_ipv4 address=160.236.244.0/23
 add list=vn_ipv4 address=160.250.0.0/22
 add list=vn_ipv4 address=160.250.4.0/23
 add list=vn_ipv4 address=160.250.26.0/23
@@ -2017,6 +2001,9 @@ add list=vn_ipv4 address=163.44.200.0/24
 add list=vn_ipv4 address=163.44.204.0/22
 add list=vn_ipv4 address=163.47.30.0/23
 add list=vn_ipv4 address=163.47.177.0/24
+add list=vn_ipv4 address=163.52.6.0/23
+add list=vn_ipv4 address=163.52.14.0/23
+add list=vn_ipv4 address=163.52.58.0/23
 add list=vn_ipv4 address=163.61.68.0/22
 add list=vn_ipv4 address=163.61.72.0/22
 add list=vn_ipv4 address=163.61.108.0/22
@@ -2041,6 +2028,7 @@ add list=vn_ipv4 address=163.171.143.0/24
 add list=vn_ipv4 address=163.171.218.0/24
 add list=vn_ipv4 address=163.171.228.0/24
 add list=vn_ipv4 address=163.181.54.0/24
+add list=vn_ipv4 address=163.181.61.0/24
 add list=vn_ipv4 address=163.181.63.0/24
 add list=vn_ipv4 address=163.181.68.0/24
 add list=vn_ipv4 address=163.181.120.0/22
@@ -2075,7 +2063,7 @@ add list=vn_ipv4 address=164.137.192.0/24
 add list=vn_ipv4 address=165.1.182.0/24
 add list=vn_ipv4 address=165.85.10.224/27
 add list=vn_ipv4 address=165.85.135.192/26
-add list=vn_ipv4 address=165.85.191.0/24
+add list=vn_ipv4 address=165.85.191.64/27
 add list=vn_ipv4 address=165.85.216.128/27
 add list=vn_ipv4 address=165.85.246.224/27
 add list=vn_ipv4 address=165.85.252.208/28
@@ -2125,6 +2113,7 @@ add list=vn_ipv4 address=168.143.96.0/24
 add list=vn_ipv4 address=168.143.111.0/24
 add list=vn_ipv4 address=168.149.179.96/27
 add list=vn_ipv4 address=169.224.154.192/26
+add list=vn_ipv4 address=170.168.90.96/27
 add list=vn_ipv4 address=170.168.167.0/24
 add list=vn_ipv4 address=170.168.220.0/24
 add list=vn_ipv4 address=171.224.0.0/11
@@ -2164,6 +2153,7 @@ add list=vn_ipv4 address=178.94.104.0/24
 add list=vn_ipv4 address=178.95.106.0/24
 add list=vn_ipv4 address=178.212.138.0/24
 add list=vn_ipv4 address=179.64.140.0/24
+add list=vn_ipv4 address=179.65.122.0/23
 add list=vn_ipv4 address=179.65.166.0/23
 add list=vn_ipv4 address=180.87.125.31/32
 add list=vn_ipv4 address=180.93.0.0/16
@@ -2179,6 +2169,7 @@ add list=vn_ipv4 address=183.81.228.0/24
 add list=vn_ipv4 address=183.90.160.0/21
 add list=vn_ipv4 address=183.91.0.0/19
 add list=vn_ipv4 address=183.91.160.0/19
+add list=vn_ipv4 address=184.104.217.0/24
 add list=vn_ipv4 address=185.17.1.0/24
 add list=vn_ipv4 address=185.24.232.40/29
 add list=vn_ipv4 address=185.24.234.144/29
@@ -2237,7 +2228,6 @@ add list=vn_ipv4 address=196.58.206.0/24
 add list=vn_ipv4 address=196.197.206.0/24
 add list=vn_ipv4 address=196.198.206.0/24
 add list=vn_ipv4 address=196.199.206.0/24
-add list=vn_ipv4 address=198.54.100.96/31
 add list=vn_ipv4 address=198.56.22.0/23
 add list=vn_ipv4 address=198.144.125.0/24
 add list=vn_ipv4 address=199.27.135.192/26
@@ -2272,7 +2262,6 @@ add list=vn_ipv4 address=202.59.252.0/23
 add list=vn_ipv4 address=202.60.104.0/21
 add list=vn_ipv4 address=202.74.56.0/24
 add list=vn_ipv4 address=202.74.58.0/23
-add list=vn_ipv4 address=202.78.169.0/24
 add list=vn_ipv4 address=202.78.224.0/21
 add list=vn_ipv4 address=202.79.232.0/21
 add list=vn_ipv4 address=202.83.0.0/22
@@ -2389,7 +2378,6 @@ add list=vn_ipv4 address=208.167.192.160/29
 add list=vn_ipv4 address=209.16.178.0/24
 add list=vn_ipv4 address=209.101.91.0/24
 add list=vn_ipv4 address=209.101.125.0/24
-add list=vn_ipv4 address=209.209.113.0/24
 add list=vn_ipv4 address=209.250.112.0/24
 add list=vn_ipv4 address=210.2.64.0/18
 add list=vn_ipv4 address=210.57.31.0/24
@@ -2634,8 +2622,8 @@ add list=vn_ipv6 address=2001:470:6239::/48
 add list=vn_ipv6 address=2001:470:6884::/48
 add list=vn_ipv6 address=2001:470:715f::/48
 add list=vn_ipv6 address=2001:470:73da::/48
-add list=vn_ipv6 address=2001:470:73f8::/48
 add list=vn_ipv6 address=2001:470:78ed::/48
+add list=vn_ipv6 address=2001:470:798e::/48
 add list=vn_ipv6 address=2001:470:80db::/48
 add list=vn_ipv6 address=2001:470:80f9::/48
 add list=vn_ipv6 address=2001:470:8144::/48
@@ -2655,7 +2643,6 @@ add list=vn_ipv6 address=2001:470:ba3e::/48
 add list=vn_ipv6 address=2001:470:c267::/48
 add list=vn_ipv6 address=2001:470:c33c::/48
 add list=vn_ipv6 address=2001:470:da5c::/48
-add list=vn_ipv6 address=2001:470:de2a::/48
 add list=vn_ipv6 address=2001:470:e017::/48
 add list=vn_ipv6 address=2001:470:e045::/48
 add list=vn_ipv6 address=2001:470:e1cd::/48
@@ -2686,6 +2673,7 @@ add list=vn_ipv6 address=2001:470:f830::/48
 add list=vn_ipv6 address=2001:470:f92d::/48
 add list=vn_ipv6 address=2001:470:f92e::/48
 add list=vn_ipv6 address=2001:470:f984::/48
+add list=vn_ipv6 address=2001:470:fa08::/48
 add list=vn_ipv6 address=2001:470:fa17::/48
 add list=vn_ipv6 address=2001:470:fc77::/48
 add list=vn_ipv6 address=2001:470:fd0d::/48
@@ -2858,7 +2846,7 @@ add list=vn_ipv6 address=2001:df3:e240::/48
 add list=vn_ipv6 address=2001:df3:e2c0::/48
 add list=vn_ipv6 address=2001:df3:e3c0::/48
 add list=vn_ipv6 address=2001:df3:e4c0::/48
-add list=vn_ipv6 address=2001:df3:e500::/48
+add list=vn_ipv6 address=2001:df3:e500::/47
 add list=vn_ipv6 address=2001:df3:e640::/48
 add list=vn_ipv6 address=2001:df3:e6c0::/48
 add list=vn_ipv6 address=2001:df3:e8c0::/48
@@ -3203,6 +3191,12 @@ add list=vn_ipv6 address=2001:df7:4700::/48
 add list=vn_ipv6 address=2001:df7:47c0::/48
 add list=vn_ipv6 address=2001:df7:4840::/48
 add list=vn_ipv6 address=2001:df7:4900::/48
+add list=vn_ipv6 address=2001:df7:5340::/48
+add list=vn_ipv6 address=2001:df7:53c0::/48
+add list=vn_ipv6 address=2001:df7:56c0::/48
+add list=vn_ipv6 address=2001:df7:5740::/48
+add list=vn_ipv6 address=2001:df7:65c0::/48
+add list=vn_ipv6 address=2001:df7:6640::/48
 add list=vn_ipv6 address=2001:df7:7300::/48
 add list=vn_ipv6 address=2001:df7:7e80::/48
 add list=vn_ipv6 address=2001:df7:a900::/48
@@ -3374,6 +3368,7 @@ add list=vn_ipv6 address=2401:3520::/32
 add list=vn_ipv6 address=2401:3560::/32
 add list=vn_ipv6 address=2401:35a0::/32
 add list=vn_ipv6 address=2401:35e0::/32
+add list=vn_ipv6 address=2401:3620:231:4::/64
 add list=vn_ipv6 address=2401:3660::/32
 add list=vn_ipv6 address=2401:36a0::/32
 add list=vn_ipv6 address=2401:36e0::/32
@@ -3495,6 +3490,7 @@ add list=vn_ipv6 address=2402:5300::/32
 add list=vn_ipv6 address=2402:60a0::/32
 add list=vn_ipv6 address=2402:6440::/32
 add list=vn_ipv6 address=2402:6aa0::/32
+add list=vn_ipv6 address=2402:6c60::/32
 add list=vn_ipv6 address=2402:9d80::/32
 add list=vn_ipv6 address=2402:c700::/32
 add list=vn_ipv6 address=2402:dd40::/32
@@ -3510,6 +3506,9 @@ add list=vn_ipv6 address=2403:b3c0::/32
 add list=vn_ipv6 address=2403:bf40::/32
 add list=vn_ipv6 address=2403:bfc0::/32
 add list=vn_ipv6 address=2403:e200::/32
+add list=vn_ipv6 address=2404:2280:20a::/48
+add list=vn_ipv6 address=2404:2280:2c6::/48
+add list=vn_ipv6 address=2404:2280:2fc::/48
 add list=vn_ipv6 address=2404:2280:309::/48
 add list=vn_ipv6 address=2404:26c0::/32
 add list=vn_ipv6 address=2404:3a00::/32
@@ -3689,7 +3688,6 @@ add list=vn_ipv6 address=2600:70ff:f80a::/48
 add list=vn_ipv6 address=2600:9000:1212::/48
 add list=vn_ipv6 address=2600:9000:1e2a::/47
 add list=vn_ipv6 address=2601:2008::/36
-add list=vn_ipv6 address=2601:2008:c000::/36
 add list=vn_ipv6 address=2602:f579::/36
 add list=vn_ipv6 address=2602:f5ea::/36
 add list=vn_ipv6 address=2602:f72f::/36
@@ -3723,9 +3721,7 @@ add list=vn_ipv6 address=2602:ffe4:c48::/46
 add list=vn_ipv6 address=2602:ffe4:c5c::/48
 add list=vn_ipv6 address=2602:ffe4:c7b::/48
 add list=vn_ipv6 address=2602:ffe4:c88::/46
-add list=vn_ipv6 address=2602:ffe4:c90::/48
 add list=vn_ipv6 address=2605:340:f09c::/48
-add list=vn_ipv6 address=2605:7a80:6706::/47
 add list=vn_ipv6 address=2606:54c0:d300::/42
 add list=vn_ipv6 address=2606:54c0:d340::/43
 add list=vn_ipv6 address=2606:54c0:d360::/44
@@ -3748,7 +3744,6 @@ add list=vn_ipv6 address=2606:58c0:c::/48
 add list=vn_ipv6 address=2606:f180:c::/48
 add list=vn_ipv6 address=2606:f184:3440::/46
 add list=vn_ipv6 address=2606:f184:3444::/48
-add list=vn_ipv6 address=2606:f188:b000::/47
 add list=vn_ipv6 address=2606:f4c0:2220::/44
 add list=vn_ipv6 address=2606:f4c0:b6b0::/44
 add list=vn_ipv6 address=2606:f4c0:bc50::/44
@@ -3756,11 +3751,10 @@ add list=vn_ipv6 address=2606:fb40:901::/48
 add list=vn_ipv6 address=2607:740:28::/48
 add list=vn_ipv6 address=2607:740:197::/48
 add list=vn_ipv6 address=2607:6b80:35::/48
-add list=vn_ipv6 address=2620:134:b054:100::/64
 add list=vn_ipv6 address=2a01:528:e00::/40
 add list=vn_ipv6 address=2a01:e300::/36
 add list=vn_ipv6 address=2a01:e300:d000::/36
-add list=vn_ipv6 address=2a01:e300:e000::/36
+add list=vn_ipv6 address=2a01:e300:e000::/35
 add list=vn_ipv6 address=2a02:26f7:c5c0::/48
 add list=vn_ipv6 address=2a02:26f7:c5c1:4000::/64
 add list=vn_ipv6 address=2a02:26f7:c5c4::/47
@@ -3802,7 +3796,8 @@ add list=vn_ipv6 address=2a02:5746:206::/48
 add list=vn_ipv6 address=2a02:5747:206::/48
 add list=vn_ipv6 address=2a03:83e0:f12::/48
 add list=vn_ipv6 address=2a03:90c0:780::/44
-add list=vn_ipv6 address=2a04:1d42:e00::/40
+add list=vn_ipv6 address=2a04:1d44:e00::/40
+add list=vn_ipv6 address=2a04:1d47:e00::/40
 add list=vn_ipv6 address=2a04:4e41:12a0:c000::/51
 add list=vn_ipv6 address=2a04:4e41:12b0::/48
 add list=vn_ipv6 address=2a04:4e41:12e0:6000::/51
@@ -3843,6 +3838,7 @@ add list=vn_ipv6 address=2a09:bac0:1000:1315::/64
 add list=vn_ipv6 address=2a09:bac0:1000:147f::/64
 add list=vn_ipv6 address=2a09:bac0:1000:1481::/64
 add list=vn_ipv6 address=2a09:bac0:1000:1482::/63
+add list=vn_ipv6 address=2a09:bac0:1000:17a3::/64
 add list=vn_ipv6 address=2a09:bac0:1001:25b::/64
 add list=vn_ipv6 address=2a09:bac0:1001:541::/64
 add list=vn_ipv6 address=2a09:bac0:1001:66d::/64
@@ -3906,10 +3902,14 @@ add list=vn_ipv6 address=2a0e:4205:b000::/47
 add list=vn_ipv6 address=2a0e:4205:b002::/48
 add list=vn_ipv6 address=2a0e:97c0:4bf2::/48
 add list=vn_ipv6 address=2a0e:b107:1730::/44
+add list=vn_ipv6 address=2a0e:cbc0:61::/48
+add list=vn_ipv6 address=2a0e:cbc0:139::/48
 add list=vn_ipv6 address=2a0e:cbc3::/32
 add list=vn_ipv6 address=2a0e:ec05:e080::/41
 add list=vn_ipv6 address=2a0e:ec05:e100::/40
 add list=vn_ipv6 address=2a0f:1cc5:1fd3::/48
+add list=vn_ipv6 address=2a0f:6280:ce95::/48
+add list=vn_ipv6 address=2a0f:6280:ce96::/48
 add list=vn_ipv6 address=2a0f:85c1:293::/48
 add list=vn_ipv6 address=2a0f:85c1:e14::/48
 add list=vn_ipv6 address=2a0f:9400:6159::/48
@@ -3921,6 +3921,8 @@ add list=vn_ipv6 address=2a11:a580:8800::/40
 add list=vn_ipv6 address=2a11:f146:9000::/36
 add list=vn_ipv6 address=2a12:f381:e00::/40
 add list=vn_ipv6 address=2a12:f382:e00::/40
+add list=vn_ipv6 address=2a13:241:5900::/40
+add list=vn_ipv6 address=2a13:241:5a00::/40
 add list=vn_ipv6 address=2a13:6cc7::/32
 add list=vn_ipv6 address=2a13:9500:8a::/48
 add list=vn_ipv6 address=2a13:9500:10c::/48
@@ -3967,13 +3969,6 @@ add list=vn_ipv6 address=2a14:7581:fbc0::/43
 add list=vn_ipv6 address=2a14:7581:fbe0::/44
 add list=vn_ipv6 address=2a14:7581:fc00::/39
 add list=vn_ipv6 address=2a14:7581:ff00::/40
-add list=vn_ipv6 address=2a14:7583:f000::/44
-add list=vn_ipv6 address=2a14:7583:f014::/46
-add list=vn_ipv6 address=2a14:7583:f018::/45
-add list=vn_ipv6 address=2a14:7583:f020::/43
-add list=vn_ipv6 address=2a14:7583:f040::/42
-add list=vn_ipv6 address=2a14:7583:f080::/41
-add list=vn_ipv6 address=2a14:7583:f100::/40
+add list=vn_ipv6 address=2a14:7583:f000::/39
 add list=vn_ipv6 address=2a14:7583:ff60::/44
-add list=vn_ipv6 address=2a14:7585:f222::/48
 add list=vn_ipv6 address=2a14:ae00:10::/44
