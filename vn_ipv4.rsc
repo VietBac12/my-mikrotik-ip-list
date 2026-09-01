@@ -1,4 +1,4 @@
-# VN & Google IP List - Updated: 2026-09-01 02:43:36.689395
+# VN & Google IP List - Updated: 2026-09-01 20:31:11.111342
 
 /ip firewall address-list
 remove [find list=vn_ipv4]
@@ -383,6 +383,7 @@ add list=vn_ipv4 address=83.97.112.0/24
 add list=vn_ipv4 address=85.8.168.0/24
 add list=vn_ipv4 address=85.28.32.0/23
 add list=vn_ipv4 address=85.117.229.0/24
+add list=vn_ipv4 address=85.155.16.0/20
 add list=vn_ipv4 address=87.84.7.0/24
 add list=vn_ipv4 address=87.84.34.0/23
 add list=vn_ipv4 address=87.119.12.0/24
