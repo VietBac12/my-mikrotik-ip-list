@@ -1,4 +1,4 @@
-# VN & Google IP List - Updated: 2026-10-01 03:12:44.338436
+# VN & Google IP List - Updated: 2026-10-01 20:30:41.221588
 
 /ip firewall address-list
 remove [find list=vn_ipv4]
@@ -3219,6 +3219,7 @@ add list=vn_ipv6 address=2001:df7:7a40::/48
 add list=vn_ipv6 address=2001:df7:7ac0::/48
 add list=vn_ipv6 address=2001:df7:7e80::/48
 add list=vn_ipv6 address=2001:df7:9bc0::/48
+add list=vn_ipv6 address=2001:df7:9f40::/48
 add list=vn_ipv6 address=2001:df7:a900::/48
 add list=vn_ipv6 address=2001:df7:c600::/48
 add list=vn_ipv6 address=2001:df7:ca00::/48
